@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="85"
+        android:id="@+id/lstAccounts"
+        android:layout_marginBottom="0.0dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="15"
+        android:id="@+id/layoutMenu1"
+        android:weightSum="100"
+        android:transitionGroup="false">
+        <Button
+            android:text="@string/btnBillReminder"
+            android:id="@+id/btnBillReminder"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:background="#ffffff" />
+        <Button
+            android:text="@string/btn_add_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/btnAddAccount"
+            android:layout_weight="50"
+            android:background="#ffffff" />
+    </LinearLayout>
+</LinearLayout>

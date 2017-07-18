@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Transact</string>
+	<string name="enter_activity">Enter Transaction</string>
+	<string name="create_button">Initialize Database</string>
+	<string name="btn_addTransaction">Add</string>
+	<string name="btnAddTransaction1">Add Transaction</string>
+	<string name="read_button">Read records</string>
+  <string name="btnBillReminder">Bill Reminder</string>
+	<string name="hint_item">Item</string>
+	<string name="hint_amount">Amount</string>
+	<string name="hint_date">Date</string>
+	<string name="hint_category">Category</string>
+	<string name="hint_type_toaccount">Type/To Account</string>
+	<string name="hint_notes">Notes</string>
+	<string name="btn_cancelTransaction">Cancel</string>
+  <string name="btn_add_account">Add Account</string>
+	<string name="btnAccountAdd">Add</string>
+  <string name="btnAccountCancel">Cancel</string>
+  <string name="hint_account_name">Account Name</string>
+  <string name="hint_account_note">Note</string>
+  <string name="hint_account_start_balance">Starting Balance</string>
+  <string name="hint_account_type">Account Type</string>
+  <string name="add_account">Add Account</string>
+	<string name="AccountType">Account Type</string>
+    <string-array name="account_array">
+        <item>Checking</item>
+        <item>Savings</item>
+        <item>Credit</item>
+    </string-array>
+
+	<string-array name="category_array">
+        <item>ATM</item>
+        <item>Auto Maintenance</item>
+        <item>Entertainment</item>
+		<item>Fee</item>
+		<item>Food</item>
+		<item>Groceries</item>
+		<item>Income</item>
+		<item>Shopping</item>
+		<item>Bills</item>
+		<item>Other</item>
+		<item>Transfer(Outward)</item>
+		<item>Transfer(Inward)</item>
+    </string-array>
+</resources>

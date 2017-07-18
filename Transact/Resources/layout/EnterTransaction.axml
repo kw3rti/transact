@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        android:hint="@string/hint_item" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:weightSum="100">
+        <EditText
+            android:inputType="numberDecimal|numberSigned"
+            android:id="@+id/txtAmount"
+            android:hint="@string/hint_amount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:inputType="date"
+            android:id="@+id/txtDate"
+            android:hint="@string/hint_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50.0dp"
+        android:id="@+id/linearLayout1"
+        android:weightSum="100">
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:id="@+id/txtType_ToAccount"
+            android:hint="@string/hint_type_toaccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNotes"
+        android:hint="@string/hint_notes" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3"
+        android:weightSum="100">
+        <Button
+            android:id="@+id/btnCancelTransaction"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@string/btn_cancelTransaction"
+            android:layout_weight="50" />
+        <Button
+            android:id="@+id/btnAddTransaction"
+            android:text="@string/btn_addTransaction"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="50" />
+    </LinearLayout>
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteTextView1" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerType_ToAccount" />
+</LinearLayout>
