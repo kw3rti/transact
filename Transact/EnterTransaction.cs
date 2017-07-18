@@ -18,6 +18,7 @@ namespace Transact
 
             //get account pk that is passed from transaction screen
             var accountPK = Intent.GetIntExtra("AccountPK",0);
+            var accountName = Intent.GetStringExtra("AccountName");
 
             // Get our controls from the layout resource
             Button insertButton = FindViewById<Button>(Resource.Id.btnAddTransaction);
@@ -44,6 +45,10 @@ namespace Transact
                 this.Finish();  //close view when finished entering transaction
             };
             cancelButton.Click += delegate { this.Finish(); };
+
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = accountName + " - Enter Transaction";
         }
 
         private async void enterTransaction(int accountPK, EditText date, EditText title, EditText amount, Spinner category, EditText type_toaccount, EditText notes){

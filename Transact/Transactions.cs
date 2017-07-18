@@ -22,6 +22,7 @@ namespace Transact
             SetContentView(Resource.Layout.Transactions);
 
             var accountPK = Intent.GetIntExtra("AccountPK",0);
+            var accountName = Intent.GetStringExtra("AccountName");
 
             transactons = new List<Transaction>();
 
@@ -41,8 +42,13 @@ namespace Transact
             addTransaction.Click += delegate {
 				var intent = new Intent(this, typeof(EnterTransaction));
 				intent.PutExtra("AccountPK", accountPK);
+                intent.PutExtra("AccountName", accountName);
 				StartActivity(intent);
             };
+
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = accountName;
         }
 
 		private void LstTransactions_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

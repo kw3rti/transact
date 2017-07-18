@@ -2232,8 +2232,8 @@ namespace Transact
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0800a7
-			public const int action0 = 2131230887;
+			// aapt resource value: 0x7f0800a8
+			public const int action0 = 2131230888;
 			
 			// aapt resource value: 0x7f08005a
 			public const int action_bar = 2131230810;
@@ -2259,8 +2259,8 @@ namespace Transact
 			// aapt resource value: 0x7f08005b
 			public const int action_context_bar = 2131230811;
 			
-			// aapt resource value: 0x7f0800ab
-			public const int action_divider = 2131230891;
+			// aapt resource value: 0x7f0800ac
+			public const int action_divider = 2131230892;
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -2286,8 +2286,8 @@ namespace Transact
 			// aapt resource value: 0x7f08001e
 			public const int always = 2131230750;
 			
-			// aapt resource value: 0x7f080083
-			public const int autoCompleteTextView1 = 2131230851;
+			// aapt resource value: 0x7f080084
+			public const int autoCompleteTextView1 = 2131230852;
 			
 			// aapt resource value: 0x7f08001b
 			public const int beginning = 2131230747;
@@ -2295,32 +2295,32 @@ namespace Transact
 			// aapt resource value: 0x7f08002a
 			public const int bottom = 2131230762;
 			
-			// aapt resource value: 0x7f08006f
-			public const int btnAccountAdd = 2131230831;
+			// aapt resource value: 0x7f080070
+			public const int btnAccountAdd = 2131230832;
 			
-			// aapt resource value: 0x7f08006e
-			public const int btnAccountCancel = 2131230830;
+			// aapt resource value: 0x7f08006f
+			public const int btnAccountCancel = 2131230831;
+			
+			// aapt resource value: 0x7f08008e
+			public const int btnAddAccount = 2131230862;
+			
+			// aapt resource value: 0x7f080083
+			public const int btnAddTransaction = 2131230851;
+			
+			// aapt resource value: 0x7f0800b6
+			public const int btnAddTransaction1 = 2131230902;
 			
 			// aapt resource value: 0x7f08008d
-			public const int btnAddAccount = 2131230861;
+			public const int btnBillReminder = 2131230861;
 			
 			// aapt resource value: 0x7f080082
-			public const int btnAddTransaction = 2131230850;
-			
-			// aapt resource value: 0x7f0800b5
-			public const int btnAddTransaction1 = 2131230901;
-			
-			// aapt resource value: 0x7f08008c
-			public const int btnBillReminder = 2131230860;
-			
-			// aapt resource value: 0x7f080081
-			public const int btnCancelTransaction = 2131230849;
+			public const int btnCancelTransaction = 2131230850;
 			
 			// aapt resource value: 0x7f080044
 			public const int buttonPanel = 2131230788;
 			
-			// aapt resource value: 0x7f0800a8
-			public const int cancel_action = 2131230888;
+			// aapt resource value: 0x7f0800a9
+			public const int cancel_action = 2131230889;
 			
 			// aapt resource value: 0x7f08002b
 			public const int center = 2131230763;
@@ -2334,8 +2334,8 @@ namespace Transact
 			// aapt resource value: 0x7f080052
 			public const int checkbox = 2131230802;
 			
-			// aapt resource value: 0x7f0800ae
-			public const int chronometer = 2131230894;
+			// aapt resource value: 0x7f0800af
+			public const int chronometer = 2131230895;
 			
 			// aapt resource value: 0x7f080033
 			public const int clip_horizontal = 2131230771;
@@ -2361,20 +2361,20 @@ namespace Transact
 			// aapt resource value: 0x7f080040
 			public const int default_activity_button = 2131230784;
 			
-			// aapt resource value: 0x7f080071
-			public const int design_bottom_sheet = 2131230833;
+			// aapt resource value: 0x7f080072
+			public const int design_bottom_sheet = 2131230834;
+			
+			// aapt resource value: 0x7f080079
+			public const int design_menu_item_action_area = 2131230841;
 			
 			// aapt resource value: 0x7f080078
-			public const int design_menu_item_action_area = 2131230840;
+			public const int design_menu_item_action_area_stub = 2131230840;
 			
 			// aapt resource value: 0x7f080077
-			public const int design_menu_item_action_area_stub = 2131230839;
+			public const int design_menu_item_text = 2131230839;
 			
 			// aapt resource value: 0x7f080076
-			public const int design_menu_item_text = 2131230838;
-			
-			// aapt resource value: 0x7f080075
-			public const int design_navigation_view = 2131230837;
+			public const int design_navigation_view = 2131230838;
 			
 			// aapt resource value: 0x7f08000e
 			public const int disableHome = 2131230734;
@@ -2385,8 +2385,8 @@ namespace Transact
 			// aapt resource value: 0x7f08001c
 			public const int end = 2131230748;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int end_padder = 2131230899;
+			// aapt resource value: 0x7f0800b4
+			public const int end_padder = 2131230900;
 			
 			// aapt resource value: 0x7f080023
 			public const int enterAlways = 2131230755;
@@ -2430,32 +2430,32 @@ namespace Transact
 			// aapt resource value: 0x7f08003f
 			public const int image = 2131230783;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int info = 2131230898;
+			// aapt resource value: 0x7f0800b3
+			public const int info = 2131230899;
 			
 			// aapt resource value: 0x7f080000
 			public const int item_touch_helper_previous_elevation = 2131230720;
 			
-			// aapt resource value: 0x7f08008b
-			public const int layoutMenu1 = 2131230859;
+			// aapt resource value: 0x7f08008c
+			public const int layoutMenu1 = 2131230860;
 			
 			// aapt resource value: 0x7f08002f
 			public const int left = 2131230767;
 			
-			// aapt resource value: 0x7f0800ac
-			public const int line1 = 2131230892;
+			// aapt resource value: 0x7f0800ad
+			public const int line1 = 2131230893;
 			
-			// aapt resource value: 0x7f0800b0
-			public const int line3 = 2131230896;
+			// aapt resource value: 0x7f0800b1
+			public const int line3 = 2131230897;
 			
-			// aapt resource value: 0x7f08006d
-			public const int linearLayout1 = 2131230829;
+			// aapt resource value: 0x7f08006e
+			public const int linearLayout1 = 2131230830;
 			
-			// aapt resource value: 0x7f08007a
-			public const int linearLayout2 = 2131230842;
+			// aapt resource value: 0x7f08007b
+			public const int linearLayout2 = 2131230843;
 			
-			// aapt resource value: 0x7f080080
-			public const int linearLayout3 = 2131230848;
+			// aapt resource value: 0x7f080081
+			public const int linearLayout3 = 2131230849;
 			
 			// aapt resource value: 0x7f08000b
 			public const int listMode = 2131230731;
@@ -2463,14 +2463,14 @@ namespace Transact
 			// aapt resource value: 0x7f080041
 			public const int list_item = 2131230785;
 			
-			// aapt resource value: 0x7f08008a
-			public const int lstAccounts = 2131230858;
+			// aapt resource value: 0x7f08008b
+			public const int lstAccounts = 2131230859;
 			
-			// aapt resource value: 0x7f0800b4
-			public const int lstTransactions = 2131230900;
+			// aapt resource value: 0x7f0800b5
+			public const int lstTransactions = 2131230901;
 			
-			// aapt resource value: 0x7f0800aa
-			public const int media_actions = 2131230890;
+			// aapt resource value: 0x7f0800ab
+			public const int media_actions = 2131230891;
 			
 			// aapt resource value: 0x7f08001d
 			public const int middle = 2131230749;
@@ -2478,83 +2478,83 @@ namespace Transact
 			// aapt resource value: 0x7f080037
 			public const int mini = 2131230775;
 			
-			// aapt resource value: 0x7f080099
-			public const int mr_art = 2131230873;
-			
-			// aapt resource value: 0x7f08008e
-			public const int mr_chooser_list = 2131230862;
-			
-			// aapt resource value: 0x7f080091
-			public const int mr_chooser_route_desc = 2131230865;
+			// aapt resource value: 0x7f08009a
+			public const int mr_art = 2131230874;
 			
 			// aapt resource value: 0x7f08008f
-			public const int mr_chooser_route_icon = 2131230863;
-			
-			// aapt resource value: 0x7f080090
-			public const int mr_chooser_route_name = 2131230864;
-			
-			// aapt resource value: 0x7f080096
-			public const int mr_close = 2131230870;
-			
-			// aapt resource value: 0x7f08009c
-			public const int mr_control_divider = 2131230876;
-			
-			// aapt resource value: 0x7f0800a2
-			public const int mr_control_play_pause = 2131230882;
-			
-			// aapt resource value: 0x7f0800a5
-			public const int mr_control_subtitle = 2131230885;
-			
-			// aapt resource value: 0x7f0800a4
-			public const int mr_control_title = 2131230884;
-			
-			// aapt resource value: 0x7f0800a3
-			public const int mr_control_title_container = 2131230883;
-			
-			// aapt resource value: 0x7f080097
-			public const int mr_custom_control = 2131230871;
-			
-			// aapt resource value: 0x7f080098
-			public const int mr_default_control = 2131230872;
-			
-			// aapt resource value: 0x7f080093
-			public const int mr_dialog_area = 2131230867;
+			public const int mr_chooser_list = 2131230863;
 			
 			// aapt resource value: 0x7f080092
-			public const int mr_expandable_area = 2131230866;
+			public const int mr_chooser_route_desc = 2131230866;
 			
-			// aapt resource value: 0x7f0800a6
-			public const int mr_group_expand_collapse = 2131230886;
+			// aapt resource value: 0x7f080090
+			public const int mr_chooser_route_icon = 2131230864;
 			
-			// aapt resource value: 0x7f08009a
-			public const int mr_media_main_control = 2131230874;
+			// aapt resource value: 0x7f080091
+			public const int mr_chooser_route_name = 2131230865;
 			
-			// aapt resource value: 0x7f080095
-			public const int mr_name = 2131230869;
-			
-			// aapt resource value: 0x7f08009b
-			public const int mr_playback_control = 2131230875;
-			
-			// aapt resource value: 0x7f080094
-			public const int mr_title_bar = 2131230868;
+			// aapt resource value: 0x7f080097
+			public const int mr_close = 2131230871;
 			
 			// aapt resource value: 0x7f08009d
-			public const int mr_volume_control = 2131230877;
+			public const int mr_control_divider = 2131230877;
+			
+			// aapt resource value: 0x7f0800a3
+			public const int mr_control_play_pause = 2131230883;
+			
+			// aapt resource value: 0x7f0800a6
+			public const int mr_control_subtitle = 2131230886;
+			
+			// aapt resource value: 0x7f0800a5
+			public const int mr_control_title = 2131230885;
+			
+			// aapt resource value: 0x7f0800a4
+			public const int mr_control_title_container = 2131230884;
+			
+			// aapt resource value: 0x7f080098
+			public const int mr_custom_control = 2131230872;
+			
+			// aapt resource value: 0x7f080099
+			public const int mr_default_control = 2131230873;
+			
+			// aapt resource value: 0x7f080094
+			public const int mr_dialog_area = 2131230868;
+			
+			// aapt resource value: 0x7f080093
+			public const int mr_expandable_area = 2131230867;
+			
+			// aapt resource value: 0x7f0800a7
+			public const int mr_group_expand_collapse = 2131230887;
+			
+			// aapt resource value: 0x7f08009b
+			public const int mr_media_main_control = 2131230875;
+			
+			// aapt resource value: 0x7f080096
+			public const int mr_name = 2131230870;
+			
+			// aapt resource value: 0x7f08009c
+			public const int mr_playback_control = 2131230876;
+			
+			// aapt resource value: 0x7f080095
+			public const int mr_title_bar = 2131230869;
 			
 			// aapt resource value: 0x7f08009e
-			public const int mr_volume_group_list = 2131230878;
+			public const int mr_volume_control = 2131230878;
 			
-			// aapt resource value: 0x7f0800a0
-			public const int mr_volume_item_icon = 2131230880;
+			// aapt resource value: 0x7f08009f
+			public const int mr_volume_group_list = 2131230879;
 			
 			// aapt resource value: 0x7f0800a1
-			public const int mr_volume_slider = 2131230881;
+			public const int mr_volume_item_icon = 2131230881;
+			
+			// aapt resource value: 0x7f0800a2
+			public const int mr_volume_slider = 2131230882;
 			
 			// aapt resource value: 0x7f080016
 			public const int multiply = 2131230742;
 			
-			// aapt resource value: 0x7f080074
-			public const int navigation_header_container = 2131230836;
+			// aapt resource value: 0x7f080075
+			public const int navigation_header_container = 2131230837;
 			
 			// aapt resource value: 0x7f080021
 			public const int never = 2131230753;
@@ -2649,11 +2649,11 @@ namespace Transact
 			// aapt resource value: 0x7f080013
 			public const int showTitle = 2131230739;
 			
-			// aapt resource value: 0x7f080073
-			public const int snackbar_action = 2131230835;
+			// aapt resource value: 0x7f080074
+			public const int snackbar_action = 2131230836;
 			
-			// aapt resource value: 0x7f080072
-			public const int snackbar_text = 2131230834;
+			// aapt resource value: 0x7f080073
+			public const int snackbar_text = 2131230835;
 			
 			// aapt resource value: 0x7f080027
 			public const int snap = 2131230759;
@@ -2661,14 +2661,14 @@ namespace Transact
 			// aapt resource value: 0x7f080045
 			public const int spacer = 2131230789;
 			
-			// aapt resource value: 0x7f08006a
-			public const int spinnerAccountType = 2131230826;
+			// aapt resource value: 0x7f08006b
+			public const int spinnerAccountType = 2131230827;
 			
-			// aapt resource value: 0x7f08007d
-			public const int spinnerCategory = 2131230845;
+			// aapt resource value: 0x7f08007e
+			public const int spinnerCategory = 2131230846;
 			
-			// aapt resource value: 0x7f080084
-			public const int spinnerType_ToAccount = 2131230852;
+			// aapt resource value: 0x7f080085
+			public const int spinnerType_ToAccount = 2131230853;
 			
 			// aapt resource value: 0x7f080008
 			public const int split_action_bar = 2131230728;
@@ -2685,8 +2685,8 @@ namespace Transact
 			// aapt resource value: 0x7f080031
 			public const int start = 2131230769;
 			
-			// aapt resource value: 0x7f0800a9
-			public const int status_bar_latest_event_content = 2131230889;
+			// aapt resource value: 0x7f0800aa
+			public const int status_bar_latest_event_content = 2131230890;
 			
 			// aapt resource value: 0x7f080065
 			public const int submit_area = 2131230821;
@@ -2694,17 +2694,17 @@ namespace Transact
 			// aapt resource value: 0x7f08000d
 			public const int tabMode = 2131230733;
 			
-			// aapt resource value: 0x7f0800b1
-			public const int text = 2131230897;
+			// aapt resource value: 0x7f0800b2
+			public const int text = 2131230898;
 			
-			// aapt resource value: 0x7f0800af
-			public const int text2 = 2131230895;
+			// aapt resource value: 0x7f0800b0
+			public const int text2 = 2131230896;
 			
 			// aapt resource value: 0x7f08004d
 			public const int textSpacerNoButtons = 2131230797;
 			
-			// aapt resource value: 0x7f0800ad
-			public const int time = 2131230893;
+			// aapt resource value: 0x7f0800ae
+			public const int time = 2131230894;
 			
 			// aapt resource value: 0x7f080043
 			public const int title = 2131230787;
@@ -2712,53 +2712,56 @@ namespace Transact
 			// aapt resource value: 0x7f080048
 			public const int title_template = 2131230792;
 			
+			// aapt resource value: 0x7f080069
+			public const int toolbar = 2131230825;
+			
 			// aapt resource value: 0x7f080032
 			public const int top = 2131230770;
 			
 			// aapt resource value: 0x7f080047
 			public const int topPanel = 2131230791;
 			
-			// aapt resource value: 0x7f080070
-			public const int touch_outside = 2131230832;
-			
-			// aapt resource value: 0x7f080085
-			public const int txtAccountBalance = 2131230853;
-			
-			// aapt resource value: 0x7f080069
-			public const int txtAccountName = 2131230825;
-			
-			// aapt resource value: 0x7f08006b
-			public const int txtAccountNote = 2131230827;
-			
-			// aapt resource value: 0x7f08006c
-			public const int txtAccountStartBalance = 2131230828;
-			
-			// aapt resource value: 0x7f08007b
-			public const int txtAmount = 2131230843;
-			
-			// aapt resource value: 0x7f08007c
-			public const int txtDate = 2131230844;
-			
-			// aapt resource value: 0x7f08007f
-			public const int txtNotes = 2131230847;
-			
-			// aapt resource value: 0x7f080079
-			public const int txtTitle = 2131230841;
-			
-			// aapt resource value: 0x7f080089
-			public const int txtTransactionAmount = 2131230857;
-			
-			// aapt resource value: 0x7f080088
-			public const int txtTransactionCategory = 2131230856;
+			// aapt resource value: 0x7f080071
+			public const int touch_outside = 2131230833;
 			
 			// aapt resource value: 0x7f080086
-			public const int txtTransactionDate = 2131230854;
+			public const int txtAccountBalance = 2131230854;
+			
+			// aapt resource value: 0x7f08006a
+			public const int txtAccountName = 2131230826;
+			
+			// aapt resource value: 0x7f08006c
+			public const int txtAccountNote = 2131230828;
+			
+			// aapt resource value: 0x7f08006d
+			public const int txtAccountStartBalance = 2131230829;
+			
+			// aapt resource value: 0x7f08007c
+			public const int txtAmount = 2131230844;
+			
+			// aapt resource value: 0x7f08007d
+			public const int txtDate = 2131230845;
+			
+			// aapt resource value: 0x7f080080
+			public const int txtNotes = 2131230848;
+			
+			// aapt resource value: 0x7f08007a
+			public const int txtTitle = 2131230842;
+			
+			// aapt resource value: 0x7f08008a
+			public const int txtTransactionAmount = 2131230858;
+			
+			// aapt resource value: 0x7f080089
+			public const int txtTransactionCategory = 2131230857;
 			
 			// aapt resource value: 0x7f080087
-			public const int txtTransactionName = 2131230855;
+			public const int txtTransactionDate = 2131230855;
 			
-			// aapt resource value: 0x7f08007e
-			public const int txtType_ToAccount = 2131230846;
+			// aapt resource value: 0x7f080088
+			public const int txtTransactionName = 2131230856;
+			
+			// aapt resource value: 0x7f08007f
+			public const int txtType_ToAccount = 2131230847;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -2769,8 +2772,8 @@ namespace Transact
 			// aapt resource value: 0x7f08000a
 			public const int view_offset_helper = 2131230730;
 			
-			// aapt resource value: 0x7f08009f
-			public const int volume_item_container = 2131230879;
+			// aapt resource value: 0x7f0800a0
+			public const int volume_item_container = 2131230880;
 			
 			// aapt resource value: 0x7f080022
 			public const int withText = 2131230754;
@@ -3034,7 +3037,10 @@ namespace Transact
 			public const int support_simple_spinner_dropdown_item = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int Transactions = 2130968636;
+			public const int toolbar = 2130968636;
+			
+			// aapt resource value: 0x7f04003d
+			public const int Transactions = 2130968637;
 			
 			static Layout()
 			{
@@ -3716,6 +3722,9 @@ namespace Transact
 			
 			// aapt resource value: 0x7f0b001a
 			public const int CardView_Light = 2131427354;
+			
+			// aapt resource value: 0x7f0b0172
+			public const int MyTheme = 2131427698;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int Platform_AppCompat = 2131427378;

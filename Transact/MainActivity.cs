@@ -18,7 +18,7 @@ namespace Transact
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //hide the title bar
-            RequestWindowFeature(Android.Views.WindowFeatures.NoTitle);
+            //RequestWindowFeature(Android.Views.WindowFeatures.NoTitle);
 
             base.OnCreate(savedInstanceState);
 
@@ -50,11 +50,16 @@ namespace Transact
                 var intent = new Intent(this, typeof(AddAccount));
                 StartActivity(intent);
             };
+
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Account Overview";
         }
         private void LstAccounts_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var intent = new Intent(this, typeof(Transactions));
             intent.PutExtra("AccountPK", accounts[e.Position].PK);
+            intent.PutExtra("AccountName", accounts[e.Position].Name);
 			StartActivity(intent);
         }
 

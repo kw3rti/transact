@@ -35,6 +35,10 @@ namespace Transact
                 this.Finish();
             };
             cancelButton.Click += delegate { this.Finish(); };
+
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Add Account";
         }
 
 		private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
