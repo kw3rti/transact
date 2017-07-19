@@ -54,7 +54,6 @@ namespace Transact
             txtTransactionCategory.Text = mItems[position].Category;
 
             TextView txtTransactionAmount = row.FindViewById<TextView>(Resource.Id.txtTransactionAmount);
-            //txtTransactionAmount.Text = mItems[position].Amount.ToString();
 
             //if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
             if(mItems[position].Amount == 0)
