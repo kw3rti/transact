@@ -58,7 +58,10 @@ namespace Transact
                     if (date.Text != ""){
                         if(category.SelectedItem.ToString() != ""){
                             if(type_toaccount.Text != ""){
-                                await MainActivity.db.addTransaction(accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.Text, notes.Text);                   
+                                await MainActivity.db.addTransaction(accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.Text, notes.Text);
+                                //set selected item to the last item in the list
+                                Transactions.lstTransactions.Adapter = Transactions.transactionAdapter;
+                                Transactions.lstTransactions.SetSelection(Transactions.transactionAdapter.Count - 1);
                             }
                             else{
                                 type_toaccount.RequestFocus();

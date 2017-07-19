@@ -31,12 +31,14 @@ namespace Transact
             // Get our button from the layout resource and attach an event to it
             Button addTransaction = FindViewById<Button>(Resource.Id.btnAddTransaction1);
             lstTransactions = FindViewById<ListView>(Resource.Id.lstTransactions);
-
+          
             transactionAdapter = new TransactionListViewAdapter(this, transactons);
-			lstTransactions.Adapter = transactionAdapter;
+            //set selected item to the last item in the list
+            lstTransactions.Adapter = transactionAdapter;
+            lstTransactions.SetSelection(transactionAdapter.Count - 1);
 
-			//click events for short and long of the listview for the accounts
-			lstTransactions.ItemClick += LstTransactions_ItemClick;
+            //click events for short and long of the listview for the accounts
+            lstTransactions.ItemClick += LstTransactions_ItemClick;
 			lstTransactions.ItemLongClick += LstTransactions_ItemLongClick;
 
             addTransaction.Click += delegate {
