@@ -43,7 +43,7 @@ namespace Transact
             }
 
             TextView txtTransactionDate = row.FindViewById<TextView>(Resource.Id.txtTransactionDate);
-            var date = mItems[position].Date.ToString("yyyy-MM-dd");
+            var date = mItems[position].Date.ToString("MMM-dd");
 
             txtTransactionDate.Text = date;
 
