@@ -69,7 +69,7 @@ namespace Transact
             {
                 txtTransactionAmount.SetTextColor(Color.Red);
             }
-            txtTransactionAmount.Text = "$" + mItems[position].Amount;
+            txtTransactionAmount.Text = "$" + mItems[position].Amount.ToString("0.00");
 
             return row;
         }

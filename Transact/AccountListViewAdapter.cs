@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
+using Java.Text;
 
 namespace Transact
 {
@@ -63,7 +64,7 @@ namespace Transact
             {
                 txtAccountTotal.SetTextColor(Color.Red);
             }
-            txtAccountTotal.Text = "$" + mItems[position].Balance;
+            txtAccountTotal.Text = "$" + mItems[position].Balance.ToString("0.00");
 
             return row;
         }
