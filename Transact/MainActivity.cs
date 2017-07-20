@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Content;
 using System.Collections.Generic;
 using System;
+using Android.Support.V7.Widget;
 
 namespace Transact
 {
@@ -13,7 +14,8 @@ namespace Transact
 		//database and account list(list, listview, and the custom list view adapter) variables
 		public static Database db = new Database();
         public static List<Account> accounts;
-        public static ListView lstAccounts; //change to recyclerview
+        public static RecyclerView lstAccounts; //change to recyclerview
+        RecyclerView.LayoutManager mLayoutManager;
         public static AccountListViewAdapter accountAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -24,7 +26,7 @@ namespace Transact
             SetContentView(Resource.Layout.Main);
 
             // Get our controls from the layout resource
-            lstAccounts = FindViewById<ListView>(Resource.Id.lstAccounts);
+            lstAccounts = FindViewById<RecyclerView>(Resource.Id.lstAccounts);
             Button btnBillReminder = FindViewById<Button>(Resource.Id.btnBillReminder);
             Button btnAddAccount = FindViewById<Button>(Resource.Id.btnAddAccount);
 
@@ -36,12 +38,12 @@ namespace Transact
             db.readAccounts();
 
             //create a new account list view adapter and set the listview from the layouts adapter to the custom one
-            accountAdapter = new AccountListViewAdapter(this, accounts);
-            lstAccounts.Adapter = accountAdapter;
+            accountAdapter = new AccountListViewAdapter(accounts);
+            lstAccounts.SetAdapter(accountAdapter);
 
             //short and long click events for the account listview
-            lstAccounts.ItemClick += LstAccounts_ItemClick;
-            lstAccounts.ItemLongClick += LstAccounts_ItemLongClick;
+            //lstAccounts.ItemClick += LstAccounts_ItemClick;
+            //lstAccounts.ItemLongClick += LstAccounts_ItemLongClick;
 
             //click event for the bill reminder button
             btnBillReminder.Click += delegate {
@@ -55,7 +57,7 @@ namespace Transact
             };
 
             //set the custom toolbar and add a title
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
             ActionBar.Title = "Account Overview";
         }
@@ -73,7 +75,7 @@ namespace Transact
         {
             //display a popup menu when long pressing an item in the account list
             //handle the menu item (edit and delete options for accounts) click event
-            PopupMenu menu = new PopupMenu(this, lstAccounts.GetChildAt(e.Position), Android.Views.GravityFlags.Right);
+            Android.Widget.PopupMenu menu = new Android.Widget.PopupMenu(this, lstAccounts.GetChildAt(e.Position), Android.Views.GravityFlags.Right);
             menu.Inflate(Resource.Layout.popup_menu_account);
             menu.MenuItemClick += (s1, arg1) => {
                 Console.WriteLine(accounts[e.Position].Name + " | " + arg1.Item.TitleFormatted + " selected");

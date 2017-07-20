@@ -11,62 +11,42 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics;
 using Java.Text;
+using Android.Support.V7.Widget;
 
 namespace Transact
 {
-    public class AccountListViewAdapter : BaseAdapter<Account>
+    public class AccountListViewAdapter : RecyclerView.Adapter
     {
         private List<Account> mItems;
-        private Context mContext;
+        //private Context mContext;
 
-        public AccountListViewAdapter(Context context, List<Account> items)
+        public AccountListViewAdapter(List<Account> items)
         {
             mItems = items;
-            mContext = context;
+            //mContext = context;
         }
 
-        public override int Count => mItems.Count;
+        //public override int Count => mItems.Count;
+
+        public override int ItemCount => throw new NotImplementedException();
 
         public override long GetItemId(int position)
         {
             return position;
         }
 
-        public override Account this[int position] => mItems[position];
+        //public override Account this[int position] => mItems[position];
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            View row = convertView;
+            throw new NotImplementedException();
+        }
 
-            if(row == null)
-            {
-                row = LayoutInflater.From(mContext).Inflate(Resource.Layout.listView_accounts, null, false);
-            }
-
-            TextView txtAccountName = row.FindViewById<TextView>(Resource.Id.txtAccountName);
-            txtAccountName.Text = mItems[position].Name;
-
-            TextView txtAccountNote = row.FindViewById<TextView>(Resource.Id.txtAccountNote);
-            txtAccountNote.Text = mItems[position].Note;
-
-            TextView txtAccountTotal = row.FindViewById<TextView>(Resource.Id.txtAccountBalance);
-
-            //if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
-            if(mItems[position].Balance == 0)
-            {
-                txtAccountTotal.SetTextColor(Color.Black);
-            }
-            else if(mItems[position].Balance > 0)
-            {
-                txtAccountTotal.SetTextColor(Color.DarkGreen);
-            }
-            else
-            {
-                txtAccountTotal.SetTextColor(Color.Red);
-            }
-            txtAccountTotal.Text = "$" + mItems[position].Balance.ToString("0.00");
-
-            return row;
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            throw new NotImplementedException();
         }
     }
 }
