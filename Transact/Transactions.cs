@@ -55,15 +55,20 @@ namespace Transact
 
 		private void LstTransactions_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
 		{
-			//makeToast(accounts[e.Position].Name + " was clicked!");
-			//var intent = new Intent(this, typeof(Transactions));
-			//intent.PutExtra("AccountPK", accounts[e.Position].PK);
-			//StartActivity(intent);
-		}
+            Toast.MakeText(this, transactons[e.Position].Title + " | open to edit screen", ToastLength.Short).Show();
+        }
 
 		private void LstTransactions_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
 		{
-			//Toast.MakeText(this, accounts[e.Position].Name + " was long clicked!", ToastLength.Short).Show();
-		}
+            //display a popup menu when long pressing an item in the transaction list
+            //handle the menu item (only delete option for transactions) click event
+            PopupMenu menu = new PopupMenu(this, lstTransactions.GetChildAt(e.Position));
+            menu.Inflate(Resource.Layout.popup_menu_transaction);
+            menu.MenuItemClick += (s1, arg1) => {
+                Console.WriteLine(transactons[e.Position].Title + " | " + arg1.Item.TitleFormatted + " selected");
+                Toast.MakeText(this, transactons[e.Position].Title + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
+            };
+            menu.Show();
+        }
     }
 }
