@@ -41,6 +41,9 @@ namespace Transact
             accountAdapter = new AccountListViewAdapter(accounts);
             lstAccounts.SetAdapter(accountAdapter);
 
+            mLayoutManager = new LinearLayoutManager(this);
+            lstAccounts.SetLayoutManager(mLayoutManager);
+
             //short and long click events for the account listview
             //lstAccounts.ItemClick += LstAccounts_ItemClick;
             //lstAccounts.ItemLongClick += LstAccounts_ItemLongClick;

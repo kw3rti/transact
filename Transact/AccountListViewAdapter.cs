@@ -18,25 +18,13 @@ namespace Transact
     public class AccountListViewAdapter : RecyclerView.Adapter
     {
         private List<Account> mItems;
-        //private Context mContext;
 
         public AccountListViewAdapter(List<Account> items)
         {
             mItems = items;
-            //mContext = context;
         }
 
-        //public override int Count => mItems.Count;
-
-        public override int ItemCount => throw new NotImplementedException();
-
-        public override long GetItemId(int position)
-        {
-            return position;
-        }
-
-        //public override Account this[int position] => mItems[position];
-
+        public override int ItemCount => mItems.Count;
 
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
