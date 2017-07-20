@@ -13,7 +13,7 @@ namespace Transact
 		//database and account list(list, listview, and the custom list view adapter) variables
 		public static Database db = new Database();
         public static List<Account> accounts;
-        public static ListView lstAccounts; //change to recyclerview
+        public static ListView lstAccounts;
         public static AccountListViewAdapter accountAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
