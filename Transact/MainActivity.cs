@@ -73,7 +73,7 @@ namespace Transact
         {
             //display a popup menu when long pressing an item in the account list
             //handle the menu item (edit and delete options for accounts) click event
-            PopupMenu menu = new PopupMenu(this, lstAccounts.GetChildAt(e.Position));
+            PopupMenu menu = new PopupMenu(this, lstAccounts.GetChildAt(e.Position), Android.Views.GravityFlags.Right);
             menu.Inflate(Resource.Layout.popup_menu_account);
             menu.MenuItemClick += (s1, arg1) => {
                 Console.WriteLine(accounts[e.Position].Name + " | " + arg1.Item.TitleFormatted + " selected");

@@ -35,7 +35,8 @@ namespace Transact
             transactionAdapter = new TransactionListViewAdapter(this, transactons);
             //set selected item to the last item in the list
             lstTransactions.Adapter = transactionAdapter;
-            lstTransactions.SetSelection(transactionAdapter.Count - 1);
+            //scroll list to bottom
+            //lstTransactions.SetSelection(transactionAdapter.Count - 1);
 
             //click events for short and long of the listview for the accounts
             lstTransactions.ItemClick += LstTransactions_ItemClick;
@@ -62,7 +63,7 @@ namespace Transact
 		{
             //display a popup menu when long pressing an item in the transaction list
             //handle the menu item (only delete option for transactions) click event
-            PopupMenu menu = new PopupMenu(this, lstTransactions.GetChildAt(e.Position));
+            PopupMenu menu = new PopupMenu(this, lstTransactions.GetChildAt(e.Position), Android.Views.GravityFlags.Right);
             menu.Inflate(Resource.Layout.popup_menu_transaction);
             menu.MenuItemClick += (s1, arg1) => {
                 Console.WriteLine(transactons[e.Position].Title + " | " + arg1.Item.TitleFormatted + " selected");
