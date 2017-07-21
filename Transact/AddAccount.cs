@@ -31,7 +31,7 @@ namespace Transact
           
             addButton.Click += async delegate {
                 await MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
-                MainActivity.lstAccounts.SetAdapter(MainActivity.accountAdapter);
+                MainActivity.mRecyclerView.SetAdapter(MainActivity.accountAdapter);
                 this.Finish();
             };
             cancelButton.Click += delegate { this.Finish(); };
