@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,67 +10,65 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
+using Java.Text;
+using Android.Support.V7.Widget;
 
 namespace Transact
 {
-    public class TransactionListViewAdapter : BaseAdapter<Transaction>
+    public class TransactionListViewAdapter : RecyclerView.Adapter
     {
         private List<Transaction> mItems;
-        private Context mContext;
 
-        public TransactionListViewAdapter(Context context, List<Transaction> items)
+        public TransactionListViewAdapter(List<Transaction> items)
         {
             mItems = items;
-            mContext = context;
         }
 
-        public override int Count => mItems.Count;
+        public override int ItemCount => mItems.Count;
 
-        public override long GetItemId(int position)
+		public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+		{
+			View itemView = LayoutInflater.From(parent.Context).
+					Inflate(Resource.Layout.listView_transactions, parent, false);
+            AccountViewHolder vh = new AccountViewHolder(itemView, OnClick, OnLongClick);
+			return vh;
+		}
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            return position;
+			TransactionViewHolder vh = holder as TransactionViewHolder;
+            vh.TransactionDate.Text = mItems[position].Date.ToString("MMM-dd");
+			vh.TransactionName.Text = mItems[position].Title;
+
+			//if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
+			if (mItems[position].Amount == 0)
+			{
+				vh.TransactionAmount.SetTextColor(Color.Black);
+			}
+			else if (mItems[position].Amount > 0)
+			{
+				vh.TransactionAmount.SetTextColor(Color.DarkGreen);
+			}
+			else
+			{
+				vh.TransactionAmount.SetTextColor(Color.Red);
+			}
+			vh.TransactionAmount.Text = "$" + mItems[position].Amount.ToString("0.00");
         }
 
-        public override Transaction this[int position] => mItems[position];
+        public event EventHandler<int> ItemClick;
+        public event EventHandler<int> ItemLongClick;
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
-        {
-            View row = convertView;
+		void OnClick(int position)
+		{
+			if (ItemClick != null)
+				ItemClick(this, position);
+		}
 
-            if(row == null)
-            {
-                row = LayoutInflater.From(mContext).Inflate(Resource.Layout.listView_transactions, null, false);
-            }
-
-            TextView txtTransactionDate = row.FindViewById<TextView>(Resource.Id.txtTransactionDate);
-            var date = mItems[position].Date.ToString("MMM-dd");
-
-            txtTransactionDate.Text = date;
-
-            TextView txtTransactionName = row.FindViewById<TextView>(Resource.Id.txtTransactionName);
-            txtTransactionName.Text = mItems[position].Title;
-
-            TextView txtTransactionCategory = row.FindViewById<TextView>(Resource.Id.txtTransactionCategory);
-            txtTransactionCategory.Text = mItems[position].Category;
-
-            TextView txtTransactionAmount = row.FindViewById<TextView>(Resource.Id.txtTransactionAmount);
-
-            //if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
-            if(mItems[position].Amount == 0)
-            {
-                txtTransactionAmount.SetTextColor(Color.Black);
-            }
-            else if(mItems[position].Amount > 0)
-            {
-                txtTransactionAmount.SetTextColor(Color.DarkGreen);
-            }
-            else
-            {
-                txtTransactionAmount.SetTextColor(Color.Red);
-            }
-            txtTransactionAmount.Text = "$" + mItems[position].Amount.ToString("0.00");
-
-            return row;
-        }
+		void OnLongClick(int position)
+		{
+			if (ItemLongClick != null)
+				ItemLongClick(this, position);
+		}
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V7.Widget;
 using Android.Widget;
 
 namespace Transact
@@ -11,7 +12,8 @@ namespace Transact
     public class Transactions : Activity
     {
         public static List<Transaction> transactons;
-		public static ListView lstTransactions;
+		public static RecyclerView mRecyclerView; //change to recyclerview
+		RecyclerView.LayoutManager mLayoutManager;
 		public static TransactionListViewAdapter transactionAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,19 +30,28 @@ namespace Transact
 
             MainActivity.db.readTransactionRecords(accountPK);
 
-            // Get our button from the layout resource and attach an event to it
-            Button addTransaction = FindViewById<Button>(Resource.Id.btnAddTransaction1);
-            lstTransactions = FindViewById<ListView>(Resource.Id.lstTransactions);
-          
-            transactionAdapter = new TransactionListViewAdapter(this, transactons);
-            //set selected item to the last item in the list
-            lstTransactions.Adapter = transactionAdapter;
+			
+
+			
+
+			// Get our button from the layout resource and attach an event to it
+			Button addTransaction = FindViewById<Button>(Resource.Id.btnAddTransaction1);
+            mRecyclerView = FindViewById<RecyclerView>(Resource.Id.lstTransactions);
+
+			mLayoutManager = new LinearLayoutManager(this);
+			mRecyclerView.SetLayoutManager(mLayoutManager);
+
+            transactionAdapter = new TransactionListViewAdapter(transactons);
+			//create a new account list view adapter and set the listview from the layouts adapter to the custom one
+			transactionAdapter.ItemClick += OnItemClick;
+			transactionAdapter.ItemLongClick += OnItemLongClick;
+			mRecyclerView.SetAdapter(transactionAdapter);
             //scroll list to bottom
             //lstTransactions.SetSelection(transactionAdapter.Count - 1);
 
             //click events for short and long of the listview for the accounts
-            lstTransactions.ItemClick += LstTransactions_ItemClick;
-			lstTransactions.ItemLongClick += LstTransactions_ItemLongClick;
+            //lstTransactions.ItemClick += LstTransactions_ItemClick;
+			//lstTransactions.ItemLongClick += LstTransactions_ItemLongClick;
 
             addTransaction.Click += delegate {
 				var intent = new Intent(this, typeof(EnterTransaction));
@@ -49,27 +60,36 @@ namespace Transact
 				StartActivity(intent);
             };
 
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
             ActionBar.Title = accountName;
         }
 
-		private void LstTransactions_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-		{
-            Toast.MakeText(this, transactons[e.Position].Title + " | open to edit screen", ToastLength.Short).Show();
-        }
 
-		private void LstTransactions_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+		void OnItemClick(object sender, int position)
 		{
-            //display a popup menu when long pressing an item in the transaction list
-            //handle the menu item (only delete option for transactions) click event
-            PopupMenu menu = new PopupMenu(this, lstTransactions.GetChildAt(e.Position), Android.Views.GravityFlags.Right);
-            menu.Inflate(Resource.Layout.popup_menu_transaction);
-            menu.MenuItemClick += (s1, arg1) => {
-                Console.WriteLine(transactons[e.Position].Title + " | " + arg1.Item.TitleFormatted + " selected");
-                Toast.MakeText(this, transactons[e.Position].Title + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
-            };
-            menu.Show();
-        }
+			Toast.MakeText(this, transactons[position].Title + " | open to edit screen", ToastLength.Short).Show();
+		}
+
+		void OnItemLongClick(object sender, int position)
+		{
+			//display a popup menu when long pressing an item in the account list
+			//handle the menu item (edit and delete options for accounts) click event
+			try
+			{
+				Android.Widget.PopupMenu menu = new Android.Widget.PopupMenu(this, mRecyclerView.FindViewHolderForAdapterPosition(position).ItemView, Android.Views.GravityFlags.Right);
+				menu.Inflate(Resource.Layout.popup_menu_transaction);
+				menu.MenuItemClick += (s1, arg1) =>
+				{
+					Console.WriteLine(transactons[position].Title + " | " + arg1.Item.TitleFormatted + " selected");
+					Toast.MakeText(this, transactons[position].Title + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
+				};
+				menu.Show();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
     }
 }
