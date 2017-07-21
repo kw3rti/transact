@@ -41,7 +41,7 @@ namespace Transact
 
             //insert button click event (code runs when button on form is clicked)
             insertButton.Click += delegate {
-                enterTransaction(accountPK, date, title, amount, category, type_toaccount, notes);
+                enterTransaction(accountPK, date, title, amount, category, type_toaccount, notes);              
                 this.Finish();  //close view when finished entering transaction
             };
             cancelButton.Click += delegate { this.Finish(); };
@@ -59,8 +59,8 @@ namespace Transact
                         if(category.SelectedItem.ToString() != ""){
                             if(type_toaccount.Text != ""){
                                 await MainActivity.db.addTransaction(accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.Text, notes.Text);
-                                //set selected item to the last item in the list
                                 Transactions.transactionAdapter.NotifyDataSetChanged();
+                                //set selected item to the last item in the list
                                 //Transactions.lstTransactions.Adapter = Transactions.transactionAdapter;
                                 //Transactions.lstTransactions.SetSelection(Transactions.transactionAdapter.Count - 1);
                             }

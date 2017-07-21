@@ -26,23 +26,18 @@ namespace Transact
             var accountPK = Intent.GetIntExtra("AccountPK",0);
             var accountName = Intent.GetStringExtra("AccountName");
 
+            // Get our button from the layout resource and attach an event to it
+            Button addTransaction = FindViewById<Button>(Resource.Id.btnAddTransaction1);
+            mRecyclerView = FindViewById<RecyclerView>(Resource.Id.lstTransactions);
+
             transactons = new List<Transaction>();
 
-            MainActivity.db.readTransactionRecords(accountPK);
-
-			
-
-			
-
-			// Get our button from the layout resource and attach an event to it
-			Button addTransaction = FindViewById<Button>(Resource.Id.btnAddTransaction1);
-            mRecyclerView = FindViewById<RecyclerView>(Resource.Id.lstTransactions);
+            MainActivity.db.readTransactionRecords(accountPK);		
 
 			mLayoutManager = new LinearLayoutManager(this);
 			mRecyclerView.SetLayoutManager(mLayoutManager);
 
             transactionAdapter = new TransactionListViewAdapter(transactons);
-			//create a new account list view adapter and set the listview from the layouts adapter to the custom one
 			transactionAdapter.ItemClick += OnItemClick;
 			transactionAdapter.ItemLongClick += OnItemLongClick;
 			mRecyclerView.SetAdapter(transactionAdapter);

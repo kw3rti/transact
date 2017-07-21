@@ -30,7 +30,7 @@ namespace Transact
 		{
 			View itemView = LayoutInflater.From(parent.Context).
 					Inflate(Resource.Layout.listView_transactions, parent, false);
-            AccountViewHolder vh = new AccountViewHolder(itemView, OnClick, OnLongClick);
+            TransactionViewHolder vh = new TransactionViewHolder(itemView, OnClick, OnLongClick);
 			return vh;
 		}
 
