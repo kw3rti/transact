@@ -1,4 +1,4 @@
-﻿using Android.App;
+﻿﻿using Android.App;
 using Android.Widget;
 using Android.OS;
 using Android.Content;
@@ -42,6 +42,8 @@ namespace Transact
 
 			//create a new account list view adapter and set the listview from the layouts adapter to the custom one
 			accountAdapter = new AccountListViewAdapter(accounts);
+            accountAdapter.ItemClick += OnItemClick;
+            accountAdapter.ItemLongClick += OnItemLongClick;
 			mRecyclerView.SetAdapter(accountAdapter);
 
             //short and long click events for the account listview
@@ -64,27 +66,35 @@ namespace Transact
             SetActionBar(toolbar);
             ActionBar.Title = "Account Overview";
         }
-        private void LstAccounts_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            //when the account is clicked - open the transaction list for the account
-            //pass the account pk and name to the transaction list page
-            var intent = new Intent(this, typeof(Transactions));
-            intent.PutExtra("AccountPK", accounts[e.Position].PK);
-            intent.PutExtra("AccountName", accounts[e.Position].Name);
-			StartActivity(intent);
-        }
 
-        private void LstAccounts_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
-        {
-            //display a popup menu when long pressing an item in the account list
-            //handle the menu item (edit and delete options for accounts) click event
-            Android.Widget.PopupMenu menu = new Android.Widget.PopupMenu(this, mRecyclerView.GetChildAt(e.Position), Android.Views.GravityFlags.Right);
-            menu.Inflate(Resource.Layout.popup_menu_account);
-            menu.MenuItemClick += (s1, arg1) => {
-                Console.WriteLine(accounts[e.Position].Name + " | " + arg1.Item.TitleFormatted + " selected");
-                Toast.MakeText(this, accounts[e.Position].Name + " | " + arg1.Item.TitleFormatted + " selected" , ToastLength.Short).Show();
-            };
-            menu.Show();
-        }
+		void OnItemClick(object sender, int position)
+		{
+			//when the account is clicked - open the transaction list for the account
+			//pass the account pk and name to the transaction list page
+			var intent = new Intent(this, typeof(Transactions));
+			intent.PutExtra("AccountPK", accounts[position].PK);
+			intent.PutExtra("AccountName", accounts[position].Name);
+			StartActivity(intent);
+		}
+
+		void OnItemLongClick(object sender, int position)
+		{
+			//display a popup menu when long pressing an item in the account list
+			//handle the menu item (edit and delete options for accounts) click event
+            try{
+				Android.Widget.PopupMenu menu = new Android.Widget.PopupMenu(this, mRecyclerView.FindViewHolderForAdapterPosition(position).ItemView, Android.Views.GravityFlags.Right);
+				menu.Inflate(Resource.Layout.popup_menu_account);
+				menu.MenuItemClick += (s1, arg1) =>
+				{
+					Console.WriteLine(accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected");
+					Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
+				};
+				menu.Show();
+            }
+            catch (Exception ex)
+			{
+                Console.WriteLine(ex.Message);
+            }
+		}
     }
 }

@@ -319,6 +319,7 @@ namespace Transact
                             }
 
                             MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(r["PK"]), Name = r["Name"].ToString(), Type = r["Type"].ToString(), Note = r["Note"].ToString(), Balance = sum });
+                            //MainActivity.accountAdapter.NotifyDataSetChanged();
                             //MainActivity.lstAccounts.Adapter = MainActivity.accountAdapter;
                         }
 						Console.WriteLine("The records were read successfully");

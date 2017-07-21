@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace Transact
 		{
 			View itemView = LayoutInflater.From(parent.Context).
 					Inflate(Resource.Layout.listView_accounts, parent, false);
-			AccountViewHolder vh = new AccountViewHolder(itemView);
+            AccountViewHolder vh = new AccountViewHolder(itemView, OnClick, OnLongClick);
 			return vh;
 		}
 
@@ -39,7 +39,36 @@ namespace Transact
 			AccountViewHolder vh = holder as AccountViewHolder;
             vh.AccountName.Text = mItems[position].Name;
 			vh.AccountNote.Text = mItems[position].Note;
-            vh.AccountBalance.Text = mItems[position].Balance.ToString("0.00");
+
+			//if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
+			if (mItems[position].Balance == 0)
+			{
+				vh.AccountBalance.SetTextColor(Color.Black);
+			}
+			else if (mItems[position].Balance > 0)
+			{
+				vh.AccountBalance.SetTextColor(Color.DarkGreen);
+			}
+			else
+			{
+				vh.AccountBalance.SetTextColor(Color.Red);
+			}
+			vh.AccountBalance.Text = "$" + mItems[position].Balance.ToString("0.00");
         }
+
+        public event EventHandler<int> ItemClick;
+        public event EventHandler<int> ItemLongClick;
+
+		void OnClick(int position)
+		{
+			if (ItemClick != null)
+				ItemClick(this, position);
+		}
+
+		void OnLongClick(int position)
+		{
+			if (ItemLongClick != null)
+				ItemLongClick(this, position);
+		}
     }
 }
