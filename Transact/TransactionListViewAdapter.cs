@@ -39,9 +39,10 @@ namespace Transact
 			TransactionViewHolder vh = holder as TransactionViewHolder;
             vh.TransactionDate.Text = mItems[position].Date.ToString("MMM-dd");
 			vh.TransactionName.Text = mItems[position].Title;
+            vh.TransactionCategory.Text = mItems[position].Category;
 
-			//if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
-			if (mItems[position].Amount == 0)
+            //if balanace is 0, text color is black; if balance is greater than 0, text color is green; if balance is less than 0, text color is red
+            if (mItems[position].Amount == 0)
 			{
 				vh.TransactionAmount.SetTextColor(Color.Black);
 			}

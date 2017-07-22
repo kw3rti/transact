@@ -55,7 +55,7 @@ namespace Transact
 				StartActivity(intent);
             };
 
-            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
             ActionBar.Title = accountName;
         }

@@ -37,7 +37,7 @@ namespace Transact
             };
             cancelButton.Click += delegate { this.Finish(); };
 
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
             ActionBar.Title = "Add Account";
         }

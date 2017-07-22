@@ -61,10 +61,18 @@ namespace Transact
                 StartActivity(intent);
             };
 
-            //set the custom toolbar and add a title
-            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar);
+            //set the custom top toolbar and add a title
+            var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
             ActionBar.Title = "Account Overview";
+
+            //bottom toolbar
+            var bottomToolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_bottom);
+            bottomToolbar.Title = "Editing";
+            bottomToolbar.InflateMenu(Resource.Menu.bottom_menu);
+            bottomToolbar.MenuItemClick += (sender, e) => {
+                Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
+            };
         }
 
 		void OnItemClick(object sender, int position)
