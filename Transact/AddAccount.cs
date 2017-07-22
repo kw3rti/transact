@@ -2,10 +2,11 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using Android.Views;
 
 namespace Transact
 {
-    [Activity(Label = "@string/add_account", Icon = "@mipmap/icon")]
+    [Activity(Label = "@string/add_account", Icon = "@mipmap/icon", WindowSoftInputMode = SoftInput.AdjustResize)]
     public class AddAccount : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

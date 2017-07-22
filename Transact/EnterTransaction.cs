@@ -3,10 +3,11 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using Android.Views;
 
 namespace Transact
 {
-    [Activity(Label = "@string/enter_activity", Icon = "@mipmap/icon")]
+    [Activity(Label = "@string/enter_activity", Icon = "@mipmap/icon", WindowSoftInputMode = SoftInput.AdjustResize)]
     public class EnterTransaction : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
