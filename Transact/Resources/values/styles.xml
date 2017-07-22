@@ -3,6 +3,6 @@
   <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowActionBar">false</item>
-    <item name="android:colorPrimary">#333e51</item>
+    <item name="android:colorPrimary">#006587</item>
   </style>
 </resources>

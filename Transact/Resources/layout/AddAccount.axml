@@ -4,47 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100">
-  <include
-        android:id="@+id/toolbar_top"
-        layout="@layout/toolbar_top" />
-  <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtAccountName"
-        android:hint="@string/hint_account_name" />
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerAccountType"
-        android:prompt="@string/AccountType" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtAccountNote"
-        android:hint="@string/hint_account_note" />
-    <EditText
-        android:inputType="numberDecimal|numberSigned"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtAccountStartBalance"
-        android:hint="@string/hint_account_start_balance" />
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1"
-        android:weightSum="100">
-        <Button
-            android:text="@string/btnAccountCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:id="@+id/btnAccountCancel" />
-        <Button
-            android:text="@string/btnAccountAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:id="@+id/btnAccountAdd" />
+        android:layout_height="match_parent"
+        android:layout_weight="85"
+        android:id="@+id/linearLayout1">
+        <include
+            android:id="@+id/toolbar_top"
+            layout="@layout/toolbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAccountName"
+            android:hint="@string/hint_account_name" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerAccountType"
+            android:prompt="@string/AccountType" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAccountNote"
+            android:hint="@string/hint_account_note" />
+        <EditText
+            android:inputType="numberDecimal|numberSigned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAccountStartBalance"
+            android:hint="@string/hint_account_start_balance" />
     </LinearLayout>
+    <include
+        android:id="@+id/toolbar_bottom"
+        layout="@layout/toolbar_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

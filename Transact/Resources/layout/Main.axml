@@ -4,14 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100">
-    <include
-        android:id="@+id/toolbar_top"
-        layout="@layout/toolbar_top" />
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="85"
-        android:id="@+id/lstAccounts" />
+        android:id="@+id/linearLayout1">
+        <include
+            android:id="@+id/toolbar_top"
+            layout="@layout/toolbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lstAccounts" />
+    </LinearLayout>
     <include
         android:id="@+id/toolbar_bottom"
         layout="@layout/toolbar_bottom" />

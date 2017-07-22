@@ -51,8 +51,8 @@ namespace Transact
 
             //bottom toolbar
             var bottomToolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_bottom);
-            bottomToolbar.Title = "Editing";
-            bottomToolbar.InflateMenu(Resource.Menu.bottom_menu);
+            bottomToolbar.Title = "";
+            bottomToolbar.InflateMenu(Resource.Menu.bottom_menu_accounts);
             bottomToolbar.MenuItemClick += (sender, e) => {
                 if(e.Item.TitleFormatted.ToString() == "Add")
                 {
