@@ -4,38 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100">
-  <include
-      android:id="@+id/toolbar_top"
-      layout="@layout/toolbar_top" />
-  <android.support.v7.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_weight="85"
-      android:id="@+id/lstAccounts" />
-  <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="75dp"
-      android:layout_weight="15"
-      android:id="@+id/layoutMenu1"
-      android:weightSum="100"
-      android:transitionGroup="false">
-    <Button
-        android:text="@string/btnBillReminder"
-        android:id="@+id/btnBillReminder"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_weight="50"
-        android:background="#ffffff" />
-    <Button
-        android:text="@string/btn_add_account"
+    <include
+        android:id="@+id/toolbar_top"
+        layout="@layout/toolbar_top" />
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/btnAddAccount"
-        android:layout_weight="50"
-        android:background="#ffffff" />
-  </LinearLayout>
-  <include
-      android:id="@+id/toolbar_bottom"
-      layout="@layout/toolbar_bottom" />
+        android:layout_weight="85"
+        android:id="@+id/lstAccounts" />
+    <include
+        android:id="@+id/toolbar_bottom"
+        layout="@layout/toolbar_bottom" />
 </LinearLayout>

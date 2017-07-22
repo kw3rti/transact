@@ -14,7 +14,7 @@ namespace Transact
 		//database and account list(list, listview, and the custom list view adapter) variables
 		public static Database db = new Database();
         public static List<Account> accounts;
-        public static RecyclerView mRecyclerView; //change to recyclerview
+        public static RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         public static AccountListViewAdapter accountAdapter;
 
@@ -27,8 +27,6 @@ namespace Transact
 
             // Get our controls from the layout resource
             mRecyclerView = FindViewById<RecyclerView>(Resource.Id.lstAccounts);
-            Button btnBillReminder = FindViewById<Button>(Resource.Id.btnBillReminder);
-            Button btnAddAccount = FindViewById<Button>(Resource.Id.btnAddAccount);
 
             //initialize the database class
             db = new Database();
@@ -44,24 +42,9 @@ namespace Transact
 			accountAdapter = new AccountListViewAdapter(accounts);
             accountAdapter.ItemClick += OnItemClick;
             accountAdapter.ItemLongClick += OnItemLongClick;
-			mRecyclerView.SetAdapter(accountAdapter);
+			mRecyclerView.SetAdapter(accountAdapter);         
 
-            //short and long click events for the account listview
-            //lstAccounts.ItemClick += LstAccounts_ItemClick;
-            //lstAccounts.ItemLongClick += LstAccounts_ItemLongClick;
-
-            //click event for the bill reminder button
-            btnBillReminder.Click += delegate {
-                Toast.MakeText(this, "Bill Reminder in future", ToastLength.Short).Show();
-            };
-
-            //click even for the add account button
-            btnAddAccount.Click += delegate {
-                var intent = new Intent(this, typeof(AddAccount));
-                StartActivity(intent);
-            };
-
-            //set the custom top toolbar and add a title
+            //top toolbar
             var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
             ActionBar.Title = "Account Overview";
@@ -71,7 +54,15 @@ namespace Transact
             bottomToolbar.Title = "Editing";
             bottomToolbar.InflateMenu(Resource.Menu.bottom_menu);
             bottomToolbar.MenuItemClick += (sender, e) => {
-                Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
+                if(e.Item.TitleFormatted.ToString() == "Add")
+                {
+                    var intent = new Intent(this, typeof(AddAccount));
+                    StartActivity(intent);
+                }
+                else if(e.Item.TitleFormatted.ToString() == "Bill Reminder")
+                {
+                    Toast.MakeText(this, "Bill Reminder: Furture Enhancement", ToastLength.Short).Show();                    
+                }                
             };
         }
 

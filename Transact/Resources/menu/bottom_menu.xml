@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-       android:id="@+id/menu_add"
-       android:icon="@drawable/ic_add_black_36dp"
-       android:showAsAction="ifRoom"
-       android:title="Add" />
-  <item
        android:id="@+id/menu_billReminder"
        android:icon="@drawable/ic_event_black_36dp"
        android:showAsAction="ifRoom"
        android:title="Bill Reminder" />
+  <item
+      android:id="@+id/menu_add"
+      android:icon="@drawable/add_with_padding"
+      android:showAsAction="ifRoom"
+      android:title="Add" />
 </menu>
