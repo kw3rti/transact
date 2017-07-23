@@ -64,7 +64,6 @@ namespace Transact
             };
         }
 
-
 		void OnItemClick(object sender, int position)
 		{
 			Toast.MakeText(this, transactions[position].Title + " | open to edit screen", ToastLength.Short).Show();

@@ -5,7 +5,6 @@ using Android.Content;
 using System.Collections.Generic;
 using System;
 using Android.Support.V7.Widget;
-using Xamarin.Forms;
 
 namespace Transact
 {
@@ -36,6 +35,7 @@ namespace Transact
             //load accounts from the database (adds the accounts in the account list)
             db.readAccounts();
 
+            //setup the layout manager and set the recyclerview to use it
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.SetLayoutManager(mLayoutManager);
 
@@ -88,7 +88,7 @@ namespace Transact
 				{
                     if(arg1.Item.TitleFormatted.ToString() == "Edit")
                     {
-
+                        Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
                     }
                     else if(arg1.Item.TitleFormatted.ToString() == "Delete")
                     {
@@ -102,8 +102,7 @@ namespace Transact
                         builder.Show();
 
                     }
-					Console.WriteLine(accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected");
-					Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();                 
+					Console.WriteLine(accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected");               
                 };
 				menu.Show();
             }
