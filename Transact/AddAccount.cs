@@ -34,18 +34,50 @@ namespace Transact
             var bottomToolbar = FindViewById<Toolbar>(Resource.Id.toolbar_bottom);
             bottomToolbar.Title = "";
             bottomToolbar.InflateMenu(Resource.Menu.bottom_menu_add_account);
-            bottomToolbar.MenuItemClick += async (sender, e) => {
+            bottomToolbar.MenuItemClick += (sender, e) => {
                 if (e.Item.TitleFormatted.ToString() == "Save")
                 {
-                    await MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
-                    MainActivity.accountAdapter.NotifyDataSetChanged();
-                    this.Finish();
+                    addAccount(name, type, note, startBalance);
                 }
                 else if (e.Item.TitleFormatted.ToString() == "Cancel")
                 {
                     this.Finish();
                 }
             };
+        }
+
+        private async void addAccount(EditText name, Spinner type, EditText note, EditText startBalance)
+        {
+            //do checks to make sure data is entered into form before saving
+            if (name.Text != "")
+            {
+                if (type.SelectedItem.ToString() != "")
+                {
+                    if (startBalance.Text != "")
+                    {
+                        await MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
+                        MainActivity.accountAdapter.NotifyDataSetChanged();
+                        //set selected item to the last item in the list
+                        MainActivity.mLayoutManager.ScrollToPosition(MainActivity.accounts.Count - 1);
+                        this.Finish();  //close view when finished entering transaction                          
+                    }
+                    else
+                    {
+                        startBalance.RequestFocus();
+                        Toast.MakeText(this, "Staring Balance cannot be null/empty", ToastLength.Short).Show();
+                    }
+                }
+                else
+                {
+                    type.RequestFocus();
+                    Toast.MakeText(this, "Type cannot be null/empty", ToastLength.Short).Show();
+                }
+            }
+            else
+            {
+                name.RequestFocus();
+                Toast.MakeText(this, "Name cannot be null/empty", ToastLength.Short).Show();
+            }
         }
     }
 }

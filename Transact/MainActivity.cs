@@ -15,7 +15,7 @@ namespace Transact
 		public static Database db = new Database();
         public static List<Account> accounts;
         public static RecyclerView mRecyclerView;
-        RecyclerView.LayoutManager mLayoutManager;
+        public static RecyclerView.LayoutManager mLayoutManager;
         public static AccountListViewAdapter accountAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)

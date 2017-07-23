@@ -95,8 +95,7 @@ namespace Transact
             else{
                 title.RequestFocus();
                 Toast.MakeText(this, "Item cannot be null/empty", ToastLength.Short).Show();
-            }
-           
+            }           
         }
     }
 }
