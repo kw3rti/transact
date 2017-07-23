@@ -224,7 +224,7 @@ namespace Transact
                         command.CommandType = CommandType.Text;
 						var pk = command.ExecuteScalar();
 
-                        Transactions.transactons.Add(new Transaction() { PK = Convert.ToInt32(pk), AccountPK = accountPK, Date = date, Title = title, Amount = amount, Category = category, Type_ToAccount = type_toaccount, Notes = notes });
+                        Transactions.transactions.Add(new Transaction() { PK = Convert.ToInt32(pk), AccountPK = accountPK, Date = date, Title = title, Amount = amount, Category = category, Type_ToAccount = type_toaccount, Notes = notes });
                         await readAccounts();
 						Console.WriteLine("The record was inserted successfully");
 					}
@@ -268,7 +268,7 @@ namespace Transact
                                               r["Type_ToAccount"].ToString(),
                                               r["Notes"].ToString());
 
-                            Transactions.transactons.Add(new Transaction() { PK = Convert.ToInt32(r["PK"].ToString()), AccountPK = Convert.ToInt32(r["AccountPK"].ToString()), Date = Convert.ToDateTime(r["Date"].ToString()), Title = r["Title"].ToString(), Amount = Convert.ToDecimal(r["Amount"].ToString()), Category = r["Category"].ToString(), Type_ToAccount = r["Type_ToAccount"].ToString(), Notes = r["Notes"].ToString() });
+                            Transactions.transactions.Add(new Transaction() { PK = Convert.ToInt32(r["PK"].ToString()), AccountPK = Convert.ToInt32(r["AccountPK"].ToString()), Date = Convert.ToDateTime(r["Date"].ToString()), Title = r["Title"].ToString(), Amount = Convert.ToDecimal(r["Amount"].ToString()), Category = r["Category"].ToString(), Type_ToAccount = r["Type_ToAccount"].ToString(), Notes = r["Notes"].ToString() });
                         }
 						Console.WriteLine("The records were read successfully");
 					}

@@ -4,28 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100">
-    <include
-        android:id="@+id/toolbar_top"
-        layout="@layout/toolbar_top" />
-    <android.support.v7.widget.RecyclerView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/lstTransactions"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="85" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_weight="15"
-        android:id="@+id/linearLayout1"
-        android:weightSum="100">
-        <Button
-            android:text="@string/btnAddTransaction1"
+        android:layout_weight="85"
+        android:id="@+id/linearLayout1">
+        <include
+            android:id="@+id/toolbar_top"
+            layout="@layout/toolbar_top"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/btnAddTransaction1"
-            android:layout_weight="100" />
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lstTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
+    <include
+        android:id="@+id/toolbar_bottom"
+        layout="@layout/toolbar_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

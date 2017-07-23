@@ -16,10 +16,6 @@ namespace Transact
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.AddAccount);
 
-            // Get our button from the layout resource and attach an event to it
-            //Button addButton = FindViewById<Button>(Resource.Id.btnAccountAdd);
-            //Button cancelButton = FindViewById<Button>(Resource.Id.btnAccountCancel);
-
             EditText name = FindViewById<EditText>(Resource.Id.txtAccountName);
             EditText note = FindViewById<EditText>(Resource.Id.txtAccountNote);
             EditText startBalance = FindViewById<EditText>(Resource.Id.txtAccountStartBalance);
@@ -27,14 +23,7 @@ namespace Transact
 			Spinner type = FindViewById<Spinner>(Resource.Id.spinnerAccountType);
 			var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerItem);
 			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-			type.Adapter = adapter;
-          
-            //addButton.Click += async delegate {
-                //await MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
-                //MainActivity.accountAdapter.NotifyDataSetChanged();
-               // this.Finish();
-           // };
-            //cancelButton.Click += delegate { this.Finish(); };
+			type.Adapter = adapter;         
 
             //top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar_top);
@@ -45,10 +34,10 @@ namespace Transact
             var bottomToolbar = FindViewById<Toolbar>(Resource.Id.toolbar_bottom);
             bottomToolbar.Title = "";
             bottomToolbar.InflateMenu(Resource.Menu.bottom_menu_add_account);
-            bottomToolbar.MenuItemClick += (sender, e) => {
+            bottomToolbar.MenuItemClick += async (sender, e) => {
                 if (e.Item.TitleFormatted.ToString() == "Save")
                 {
-                    MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
+                    await MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
                     MainActivity.accountAdapter.NotifyDataSetChanged();
                     this.Finish();
                 }
