@@ -4,6 +4,7 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using Android.Views;
+using System.Threading.Tasks;
 
 namespace Transact
 {
@@ -50,7 +51,8 @@ namespace Transact
             bottomToolbar.MenuItemClick += (sender, e) => {
                 if (e.Item.TitleFormatted.ToString() == "Save")
                 {
-                    enterTransaction(accountPK, date, title, amount, category, type_toaccount, notes);                    
+                    enterTransaction(accountPK, date, title, amount, category, type_toaccount, notes);
+                   
                 }
                 else if (e.Item.TitleFormatted.ToString() == "Cancel")
                 {
@@ -67,7 +69,7 @@ namespace Transact
                         if(category.SelectedItem.ToString() != ""){
                             if(type_toaccount.Text != ""){
                                 await MainActivity.db.addTransaction(accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.Text, notes.Text);
-                                Transactions.transactionAdapter.NotifyDataSetChanged();
+                                //Transactions.transactionAdapter.NotifyDataSetChanged();
                                 //set selected item to the last item in the list
                                 Transactions.mLayoutManager.ScrollToPosition(Transactions.transactions.Count - 1);
                                 this.Finish();  //close view when finished entering transaction

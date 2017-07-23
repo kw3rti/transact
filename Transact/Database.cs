@@ -182,7 +182,7 @@ namespace Transact
                         command.CommandType = CommandType.Text;
                         var accountPK = command.ExecuteScalar();
 
-                        MainActivity.accounts.Add(new Account() { Name = name, Note = note, Balance = amount });
+                        MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(accountPK), Name = name, Type = type, Note = note, Balance = amount });
 
                         await addTransaction(Convert.ToInt32(accountPK), date, "Initial Balance", amount, category,type_toaccount, notes);
 
@@ -225,7 +225,23 @@ namespace Transact
 						var pk = command.ExecuteScalar();
 
                         Transactions.transactions.Add(new Transaction() { PK = Convert.ToInt32(pk), AccountPK = accountPK, Date = date, Title = title, Amount = amount, Category = category, Type_ToAccount = type_toaccount, Notes = notes });
-                        await readAccounts();
+
+                        //notify the list of transactions that the data set has changed (to update the list of transactions)
+                        Transactions.transactionAdapter.NotifyDataSetChanged();
+
+                        //get new account balance after transaction add
+                        var newAccountBalance = getAccountBalance(accountPK);
+
+                        //go through each account and update the account with the new balance
+                        foreach (Account act in MainActivity.accounts)
+                        {
+                            if(act.PK == accountPK)
+                            {
+                                act.Balance = newAccountBalance;
+                                MainActivity.accountAdapter.NotifyDataSetChanged();
+                                break;
+                            }
+                        }
 						Console.WriteLine("The record was inserted successfully");
 					}
                     conn.Close();
@@ -293,7 +309,9 @@ namespace Transact
             decimal sum = 0;
 			try
 			{
-				using (var conn = new SqliteConnection((connectionString)))
+                //MainActivity.accounts = new System.Collections.Generic.List<Account>();
+
+                using (var conn = new SqliteConnection((connectionString)))
 				{
 					await conn.OpenAsync();
 					using (var command = conn.CreateCommand())
@@ -310,19 +328,17 @@ namespace Transact
                                               r["Type"].ToString(),
                                               r["Note"].ToString());
 
-                            using (var command2 = conn.CreateCommand())
-                            {
-								command2.CommandText = "SELECT sum(Amount) balance FROM " + transactionTableName + " WHERE AccountPK = @accountPK";
-                                command2.Parameters.Add("@accountPK", DbType.Int32).Value = r["PK"].ToString();
-								command2.CommandType = CommandType.Text;
-                                sum = Convert.ToDecimal(command2.ExecuteScalar());
-                            }
-
+                            sum = getAccountBalance(Convert.ToInt32(r["PK"]));
+                            
                             MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(r["PK"]), Name = r["Name"].ToString(), Type = r["Type"].ToString(), Note = r["Note"].ToString(), Balance = sum });
                             //MainActivity.accountAdapter.NotifyDataSetChanged();
                             //MainActivity.lstAccounts.Adapter = MainActivity.accountAdapter;
                         }
-						Console.WriteLine("The records were read successfully");
+                        //MainActivity.mLayoutManager = new Android.Support.V7.Widget.LinearLayoutManager(this);
+                        //MainActivity.mRecyclerView.SetLayoutManager(MainActivity.mLayoutManager);
+                        //MainActivity.accountAdapter = new AccountListViewAdapter(MainActivity.accounts);
+                        //MainActivity.accountAdapter.NotifyDataSetChanged();
+                        Console.WriteLine("The records were read successfully");
 					}
 					conn.Close();
 				}
@@ -333,5 +349,137 @@ namespace Transact
 				Console.WriteLine("Failed to read record - reason: " + ex.Message);
 			}
 		}
+
+        private decimal getAccountBalance(int accountPK)
+        {
+            Console.WriteLine("Start: ReadAccounts");
+            //MainActivity.accounts = new System.Collections.Generic.List<Account>();
+            //MainActivity.lstAccounts = FindViewById<Android.Widget.ListView>(Resource.Id.lstAccounts);
+            // create a connection string for the database
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            decimal sum = 0;
+            try
+            {
+                using (var conn = new SqliteConnection((connectionString)))
+                {
+                    conn.OpenAsync();
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandText = "SELECT sum(Amount) balance FROM " + transactionTableName + " WHERE AccountPK = @accountPK";
+                        command.Parameters.Add("@accountPK", DbType.Int32).Value = accountPK;
+                        command.CommandType = CommandType.Text;
+                        sum = Convert.ToDecimal(command.ExecuteScalar());
+
+                        Console.WriteLine("The records were read successfully");                                            
+                    }
+                    conn.Close();                    
+                }
+                Console.WriteLine("End: ReadAccounts");
+
+                return sum;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to read record - reason: " + ex.Message);
+                return sum;
+            }
+        }
+
+        public async Task<bool> deleteAccount(int accountPK){
+            Console.WriteLine("Start: DeleteAccount");
+
+            // create a connection string for the database
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            try
+            {
+                using (var conn = new SqliteConnection((connectionString)))
+                {
+                    await conn.OpenAsync();
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM " + accountTableName + " WHERE PK = @accountPK; DELETE FROM " + transactionTableName + " WHERE AccountPK = @accountPK;";
+                        command.Parameters.Add("@accountPK", DbType.Int32).Value = accountPK;
+                        command.CommandType = CommandType.Text;
+                        await command.ExecuteNonQueryAsync();
+
+                        //go through each account and remove the account we just deleted from the database
+                        foreach (Account act in MainActivity.accounts)
+                        {
+                            if (act.PK == accountPK)
+                            {
+                                MainActivity.accounts.Remove(act);
+                                MainActivity.accountAdapter.NotifyDataSetChanged();
+                                break;
+                            }
+                        }
+                        Console.WriteLine("The account was deleted successfully");
+                    }
+                    conn.Close();
+                }
+                Console.WriteLine("End: DeleteAccount");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to delete account - reason: " + ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> deleteTransaction(int accountPK, int transactionPK)
+        {
+            Console.WriteLine("Start: DeleteTransaction");
+
+            // create a connection string for the database
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            try
+            {
+                using (var conn = new SqliteConnection((connectionString)))
+                {
+                    await conn.OpenAsync();
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM " + transactionTableName + " WHERE PK = @transactionPK;";
+                        command.Parameters.Add("@transactionPK", DbType.Int32).Value = transactionPK;
+                        command.CommandType = CommandType.Text;
+                        await command.ExecuteNonQueryAsync();
+
+                        //go through each account and remove the account we just deleted from the database
+                        foreach (Transaction trans in Transactions.transactions)
+                        {
+                            if (trans.PK == transactionPK)
+                            {
+                                Transactions.transactions.Remove(trans);
+                                Transactions.transactionAdapter.NotifyDataSetChanged();
+                                break;
+                            }
+                        }
+
+                        //get new account balance after transaction add
+                        var newAccountBalance = getAccountBalance(accountPK);
+
+                        //go through each account and update the account with the new balance
+                        foreach (Account act in MainActivity.accounts)
+                        {
+                            if (act.PK == accountPK)
+                            {
+                                act.Balance = newAccountBalance;
+                                MainActivity.accountAdapter.NotifyDataSetChanged();
+                                break;
+                            }
+                        }
+                        Console.WriteLine("The transaction was deleted successfully");
+                    }
+                    conn.Close();
+                }
+                Console.WriteLine("End: DeleteTransaction");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to delete transaction - reason: " + ex.Message);
+                return false;
+            }
+        }
     }
 }

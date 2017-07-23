@@ -16,6 +16,7 @@ namespace Transact
 		public static RecyclerView mRecyclerView; //change to recyclerview
 		public static RecyclerView.LayoutManager mLayoutManager;
 		public static TransactionListViewAdapter transactionAdapter;
+        private int accountPK;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,7 +25,7 @@ namespace Transact
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Transactions);
 
-            var accountPK = Intent.GetIntExtra("AccountPK",0);
+            accountPK = Intent.GetIntExtra("AccountPK",0);
             var accountName = Intent.GetStringExtra("AccountName");
 
             // Get our button from the layout resource and attach an event to it
@@ -78,8 +79,20 @@ namespace Transact
 				Android.Widget.PopupMenu menu = new Android.Widget.PopupMenu(this, mRecyclerView.FindViewHolderForAdapterPosition(position).ItemView, Android.Views.GravityFlags.Right);
 				menu.Inflate(Resource.Layout.popup_menu_transaction);
 				menu.MenuItemClick += (s1, arg1) =>
-				{
-					Console.WriteLine(transactions[position].Title + " | " + arg1.Item.TitleFormatted + " selected");
+                {
+                    if (arg1.Item.TitleFormatted.ToString() == "Delete")
+                    {
+                        AlertDialog.Builder builder;
+                        builder = new AlertDialog.Builder(this);
+                        builder.SetTitle("Delete?");
+                        builder.SetMessage("Are you sure you want to delete the transaction: " + transactions[position].Title);
+                        builder.SetCancelable(false);
+                        builder.SetPositiveButton("Yes", delegate { MainActivity.db.deleteTransaction(accountPK, transactions[position].PK); });
+                        builder.SetNegativeButton("Cancel", delegate { builder.Dispose(); });
+                        builder.Show();
+
+                    }
+                    Console.WriteLine(transactions[position].Title + " | " + arg1.Item.TitleFormatted + " selected");
 					Toast.MakeText(this, transactions[position].Title + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
 				};
 				menu.Show();

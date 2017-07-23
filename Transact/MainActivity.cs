@@ -5,6 +5,7 @@ using Android.Content;
 using System.Collections.Generic;
 using System;
 using Android.Support.V7.Widget;
+using Xamarin.Forms;
 
 namespace Transact
 {
@@ -85,9 +86,25 @@ namespace Transact
 				menu.Inflate(Resource.Layout.popup_menu_account);
 				menu.MenuItemClick += (s1, arg1) =>
 				{
+                    if(arg1.Item.TitleFormatted.ToString() == "Edit")
+                    {
+
+                    }
+                    else if(arg1.Item.TitleFormatted.ToString() == "Delete")
+                    {
+                        AlertDialog.Builder builder;
+                        builder = new AlertDialog.Builder(this);
+                        builder.SetTitle("Delete?");
+                        builder.SetMessage("Are you sure you want to delete the account: " + accounts[position].Name);
+                        builder.SetCancelable(false);
+                        builder.SetPositiveButton("Yes", delegate { db.deleteAccount(accounts[position].PK); });
+                        builder.SetNegativeButton("Cancel", delegate { builder.Dispose(); });
+                        builder.Show();
+
+                    }
 					Console.WriteLine(accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected");
-					Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
-				};
+					Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();                 
+                };
 				menu.Show();
             }
             catch (Exception ex)
