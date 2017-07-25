@@ -92,7 +92,6 @@ namespace Transact
 
                     }
                     Console.WriteLine(transactions[position].Title + " | " + arg1.Item.TitleFormatted + " selected");
-					Toast.MakeText(this, transactions[position].Title + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
 				};
 				menu.Show();
 			}

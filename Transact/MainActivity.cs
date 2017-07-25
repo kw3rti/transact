@@ -100,7 +100,6 @@ namespace Transact
                         builder.SetPositiveButton("Yes", delegate { db.deleteAccount(accounts[position].PK); });
                         builder.SetNegativeButton("Cancel", delegate { builder.Dispose(); });
                         builder.Show();
-
                     }
 					Console.WriteLine(accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected");               
                 };
