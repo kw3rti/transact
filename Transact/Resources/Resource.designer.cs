@@ -1110,32 +1110,35 @@ namespace Transact
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0c0048
-			public const int abc_background_cache_hint_selector_material_dark = 2131492936;
+			// aapt resource value: 0x7f0c004b
+			public const int ToolbarBottom = 2131492939;
 			
-			// aapt resource value: 0x7f0c0049
-			public const int abc_background_cache_hint_selector_material_light = 2131492937;
+			// aapt resource value: 0x7f0c004c
+			public const int abc_background_cache_hint_selector_material_dark = 2131492940;
 			
-			// aapt resource value: 0x7f0c004a
-			public const int abc_color_highlight_material = 2131492938;
+			// aapt resource value: 0x7f0c004d
+			public const int abc_background_cache_hint_selector_material_light = 2131492941;
+			
+			// aapt resource value: 0x7f0c004e
+			public const int abc_color_highlight_material = 2131492942;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int abc_input_method_navigation_guard = 2131492868;
 			
-			// aapt resource value: 0x7f0c004b
-			public const int abc_primary_text_disable_only_material_dark = 2131492939;
-			
-			// aapt resource value: 0x7f0c004c
-			public const int abc_primary_text_disable_only_material_light = 2131492940;
-			
-			// aapt resource value: 0x7f0c004d
-			public const int abc_primary_text_material_dark = 2131492941;
-			
-			// aapt resource value: 0x7f0c004e
-			public const int abc_primary_text_material_light = 2131492942;
-			
 			// aapt resource value: 0x7f0c004f
-			public const int abc_search_url_text = 2131492943;
+			public const int abc_primary_text_disable_only_material_dark = 2131492943;
+			
+			// aapt resource value: 0x7f0c0050
+			public const int abc_primary_text_disable_only_material_light = 2131492944;
+			
+			// aapt resource value: 0x7f0c0051
+			public const int abc_primary_text_material_dark = 2131492945;
+			
+			// aapt resource value: 0x7f0c0052
+			public const int abc_primary_text_material_light = 2131492946;
+			
+			// aapt resource value: 0x7f0c0053
+			public const int abc_search_url_text = 2131492947;
 			
 			// aapt resource value: 0x7f0c0005
 			public const int abc_search_url_text_normal = 2131492869;
@@ -1146,11 +1149,14 @@ namespace Transact
 			// aapt resource value: 0x7f0c0007
 			public const int abc_search_url_text_selected = 2131492871;
 			
-			// aapt resource value: 0x7f0c0050
-			public const int abc_secondary_text_material_dark = 2131492944;
+			// aapt resource value: 0x7f0c0054
+			public const int abc_secondary_text_material_dark = 2131492948;
 			
-			// aapt resource value: 0x7f0c0051
-			public const int abc_secondary_text_material_light = 2131492945;
+			// aapt resource value: 0x7f0c0055
+			public const int abc_secondary_text_material_light = 2131492949;
+			
+			// aapt resource value: 0x7f0c004a
+			public const int accent = 2131492938;
 			
 			// aapt resource value: 0x7f0c0008
 			public const int accent_material_dark = 2131492872;
@@ -1302,6 +1308,12 @@ namespace Transact
 			// aapt resource value: 0x7f0c002b
 			public const int material_grey_900 = 2131492907;
 			
+			// aapt resource value: 0x7f0c0048
+			public const int primary = 2131492936;
+			
+			// aapt resource value: 0x7f0c0049
+			public const int primary_dark = 2131492937;
+			
 			// aapt resource value: 0x7f0c002c
 			public const int primary_dark_material_dark = 2131492908;
 			
@@ -1350,11 +1362,11 @@ namespace Transact
 			// aapt resource value: 0x7f0c003b
 			public const int switch_thumb_disabled_material_light = 2131492923;
 			
-			// aapt resource value: 0x7f0c0052
-			public const int switch_thumb_material_dark = 2131492946;
+			// aapt resource value: 0x7f0c0056
+			public const int switch_thumb_material_dark = 2131492950;
 			
-			// aapt resource value: 0x7f0c0053
-			public const int switch_thumb_material_light = 2131492947;
+			// aapt resource value: 0x7f0c0057
+			public const int switch_thumb_material_light = 2131492951;
 			
 			// aapt resource value: 0x7f0c003c
 			public const int switch_thumb_normal_material_dark = 2131492924;

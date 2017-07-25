@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="65dp"
     android:minHeight="?android:attr/actionBarSize"
-    android:background="#ffffff"
+    android:background="@color/ToolbarBottom"
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar" />

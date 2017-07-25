@@ -6,10 +6,11 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using Android.Views;
+using Xamarin.Forms;
 
 namespace Transact
 {
-    [Activity(Label = "@string/enter_activity", Icon = "@mipmap/icon", WindowSoftInputMode = SoftInput.AdjustResize)]
+    [Activity(ParentActivity = typeof(MainActivity), Label = "@string/enter_activity", Icon = "@mipmap/icon", WindowSoftInputMode = SoftInput.AdjustResize)]
     public class Transactions : Activity
     {
         public static List<Transaction> transactions;
@@ -48,6 +49,7 @@ namespace Transact
             var toolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
             ActionBar.Title = accountName;
+            ActionBar.SetDisplayHomeAsUpEnabled(true); //enable the "up" button in the toolbar to navigate back
 
             //bottom toolbar
             var bottomToolbar = FindViewById<Android.Widget.Toolbar>(Resource.Id.toolbar_bottom);
