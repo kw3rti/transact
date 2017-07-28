@@ -7,28 +7,43 @@ using Android.Views;
 namespace Transact
 {
     [Activity(Label = "@string/add_account", Icon = "@mipmap/icon", WindowSoftInputMode = SoftInput.AdjustResize)]
-    public class AddAccount : Activity
+    public class Add_Edit_Account : Activity
     {
+        private string type;
+        private int accountPK;
+        private EditText name;
+        private EditText note;
+        private EditText startBalance;
+        private Spinner accountType;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.AddAccount);
+            SetContentView(Resource.Layout.Add_Edit_Account);
 
-            EditText name = FindViewById<EditText>(Resource.Id.txtAccountName);
-            EditText note = FindViewById<EditText>(Resource.Id.txtAccountNote);
-            EditText startBalance = FindViewById<EditText>(Resource.Id.txtAccountStartBalance);
+            type = Intent.GetStringExtra("Type");
 
-			Spinner type = FindViewById<Spinner>(Resource.Id.spinnerAccountType);
+            name = FindViewById<EditText>(Resource.Id.txtAccountName);
+            note = FindViewById<EditText>(Resource.Id.txtAccountNote);
+            startBalance = FindViewById<EditText>(Resource.Id.txtAccountStartBalance);
+
+			accountType = FindViewById<Spinner>(Resource.Id.spinnerAccountType);
 			var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerItem);
 			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-			type.Adapter = adapter;         
+            accountType.Adapter = adapter;         
+
+            if(type == "Edit")
+            {
+                accountPK = Intent.GetIntExtra("AccountPK", 0);
+                loadAccount(accountPK);
+            }
 
             //top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
-            ActionBar.Title = "Add Account";
+            ActionBar.Title = type + " Account";
 
             //bottom toolbar
             var bottomToolbar = FindViewById<Toolbar>(Resource.Id.toolbar_bottom);
@@ -37,13 +52,29 @@ namespace Transact
             bottomToolbar.MenuItemClick += (sender, e) => {
                 if (e.Item.TitleFormatted.ToString() == "Save")
                 {
-                    addAccount(name, type, note, startBalance);
+                    addAccount(name, accountType, note, startBalance);
                 }
                 else if (e.Item.TitleFormatted.ToString() == "Cancel")
                 {
                     this.Finish();
                 }
             };
+        }
+
+        private void loadAccount(int accountPK)
+        {
+            //go through each account and update the account with the new balance
+            foreach (Account act in MainActivity.accounts)
+            {
+                if (act.PK == accountPK)
+                {
+                    name.Text = act.Name;
+                    note.Text = act.Note;
+                    startBalance.Text = act.Balance.ToString();
+                    break;
+                }
+            }
+            
         }
 
         private async void addAccount(EditText name, Spinner type, EditText note, EditText startBalance)

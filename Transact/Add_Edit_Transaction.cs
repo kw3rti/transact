@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 namespace Transact
 {
     [Activity(Label = "@string/enter_activity", Icon = "@mipmap/icon", WindowSoftInputMode = SoftInput.AdjustResize)]
-    public class EnterTransaction : Activity
+    public class Add_Edit_Transaction : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.EnterTransaction);
+            SetContentView(Resource.Layout.Add_Edit_Transaction);
 
             //get account pk that is passed from transaction screen
             var accountPK = Intent.GetIntExtra("AccountPK",0);
             var accountName = Intent.GetStringExtra("AccountName");
+            var type = Intent.GetStringExtra("Type");
 
             // Get our controls from the layout resource
             EditText title = FindViewById<EditText>(Resource.Id.txtTitle);
@@ -42,7 +43,7 @@ namespace Transact
             //top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar_top);
             SetActionBar(toolbar);
-            ActionBar.Title = accountName + " - Enter Transaction";
+            ActionBar.Title = accountName + " - " + type + " Transaction";
 
             //bottom toolbar
             var bottomToolbar = FindViewById<Toolbar>(Resource.Id.toolbar_bottom);

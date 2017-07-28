@@ -57,7 +57,8 @@ namespace Transact
             bottomToolbar.MenuItemClick += (sender, e) => {
                 if(e.Item.TitleFormatted.ToString() == "Add")
                 {
-                    var intent = new Intent(this, typeof(AddAccount));
+                    var intent = new Intent(this, typeof(Add_Edit_Account));
+                    intent.PutExtra("Type", "Add");     //inform this is a new account
                     StartActivity(intent);
                 }
                 else if(e.Item.TitleFormatted.ToString() == "Bill Reminder")
@@ -88,7 +89,11 @@ namespace Transact
 				{
                     if(arg1.Item.TitleFormatted.ToString() == "Edit")
                     {
-                        Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
+                        //Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
+                        var intent = new Intent(this, typeof(Add_Edit_Account));
+                        intent.PutExtra("Type", "Edit");     //inform this is account edit
+                        intent.PutExtra("AccountPK", accounts[position].PK);
+                        StartActivity(intent);
                     }
                     else if(arg1.Item.TitleFormatted.ToString() == "Delete")
                     {

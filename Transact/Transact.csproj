@@ -93,8 +93,8 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="AccountListViewAdapter.cs" />
-    <Compile Include="AddAccount.cs" />
-    <Compile Include="EnterTransaction.cs" />
+    <Compile Include="Add_Edit_Account.cs" />
+    <Compile Include="Add_Edit_Transaction.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,13 +112,13 @@
     </None>
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
-    <AndroidResource Include="Resources\layout\EnterTransaction.axml">
+    <AndroidResource Include="Resources\layout\Add_Edit_Transaction.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\listView_accounts.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\AddAccount.axml">
+    <AndroidResource Include="Resources\layout\Add_Edit_Account.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\listView_transactions.axml">

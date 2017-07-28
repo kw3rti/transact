@@ -18,6 +18,7 @@ namespace Transact
 		public static RecyclerView.LayoutManager mLayoutManager;
 		public static TransactionListViewAdapter transactionAdapter;
         private int accountPK;
+        private string accountName;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,7 +28,7 @@ namespace Transact
             SetContentView(Resource.Layout.Transactions);
 
             accountPK = Intent.GetIntExtra("AccountPK",0);
-            var accountName = Intent.GetStringExtra("AccountName");
+            accountName = Intent.GetStringExtra("AccountName");
 
             // Get our button from the layout resource and attach an event to it
             mRecyclerView = FindViewById<RecyclerView>(Resource.Id.lstTransactions);
@@ -58,7 +59,8 @@ namespace Transact
             bottomToolbar.MenuItemClick += (sender, e) => {
                 if (e.Item.TitleFormatted.ToString() == "Add")
                 {
-                    var intent = new Intent(this, typeof(EnterTransaction));
+                    var intent = new Intent(this, typeof(Add_Edit_Transaction));
+                    intent.PutExtra("Type", "Add");     //inform this is a new transaction
                     intent.PutExtra("AccountPK", accountPK);
                     intent.PutExtra("AccountName", accountName);
                     StartActivity(intent);
@@ -69,7 +71,12 @@ namespace Transact
 		void OnItemClick(object sender, int position)
 		{
 			Toast.MakeText(this, transactions[position].Title + " | open to edit screen", ToastLength.Short).Show();
-		}
+            var intent = new Intent(this, typeof(Add_Edit_Transaction));
+            intent.PutExtra("Type", "Edit");     //inform this is a edit transaction
+            intent.PutExtra("AccountPK", accountPK);
+            intent.PutExtra("AccountName", accountName);
+            StartActivity(intent);
+        }
 
 		void OnItemLongClick(object sender, int position)
 		{
