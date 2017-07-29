@@ -315,6 +315,75 @@ namespace Transact
 			}
         }
 
+        public async Task<bool> updateTransaction(int transactionPK, int accountPK, DateTime date, string title, decimal amount, string category, string type_toaccount, string notes)
+        {
+            initializeDatabase();
+            Console.WriteLine("Start: AddTransaction");
+
+            // create a connection string for the database
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            try
+            {
+                using (var conn = new SqliteConnection((connectionString)))
+                {
+                    await conn.OpenAsync();
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE " + transactionTableName + " SET Date = @date, Title = @title, Amount = @amount, Category = @category, Type_ToAccount = @type_toaccount, Notes = @notes WHERE PK = @transactionPK;";
+                        command.Parameters.Add("@transactionPK", DbType.Int32).Value = transactionPK;
+                        command.Parameters.Add("@date", DbType.Date).Value = date;
+                        command.Parameters.Add("@title", DbType.String).Value = title;
+                        command.Parameters.Add("@amount", DbType.Decimal).Value = amount;
+                        command.Parameters.Add("@category", DbType.String).Value = category;
+                        command.Parameters.Add("@type_toaccount", DbType.String).Value = type_toaccount;
+                        command.Parameters.Add("@notes", DbType.String).Value = notes;
+                        command.CommandType = CommandType.Text;
+                        command.ExecuteNonQuery();
+
+                        //go through each transaction and update the transaction with the new values
+                        foreach (Transaction trans in Transactions.transactions)
+                        {
+                            if (trans.PK == transactionPK)
+                            {
+                                trans.Date = date;
+                                trans.Title = title;
+                                trans.Amount = amount;
+                                trans.Category = category;
+                                trans.Type_ToAccount = type_toaccount;
+                                trans.Notes = notes;
+                                break;
+                            }
+                        }
+                        //notify the list of transactions that the data set has changed (to update the list of transactions)
+                        Transactions.transactionAdapter.NotifyDataSetChanged();
+
+                        //get new account balance after transaction add
+                        var newAccountBalance = getAccountBalance(accountPK);
+
+                        //go through each account and update the account with the new balance
+                        foreach (Account act in MainActivity.accounts)
+                        {
+                            if (act.PK == accountPK)
+                            {
+                                act.Balance = newAccountBalance;
+                                MainActivity.accountAdapter.NotifyDataSetChanged();
+                                break;
+                            }
+                        }
+                        Console.WriteLine("The record was inserted successfully");
+                    }
+                    conn.Close();
+                }
+                Console.WriteLine("End: AddTransaction");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to insert record - reason: " + ex.Message);
+                return false;
+            }
+        }
+
         public async Task<string> readTransactionRecords(int accountPK){
 			Console.WriteLine("Start: ReadTransactiionRecord");
 			// create a connection string for the database

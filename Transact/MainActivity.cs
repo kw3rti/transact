@@ -55,12 +55,14 @@ namespace Transact
             bottomToolbar.Title = "";
             bottomToolbar.InflateMenu(Resource.Menu.bottom_menu_account_list);
             bottomToolbar.MenuItemClick += (sender, e) => {
+                //when the add button is clicked on the bottom toolbar
                 if(e.Item.TitleFormatted.ToString() == "Add")
                 {
                     var intent = new Intent(this, typeof(Add_Edit_Account));
                     intent.PutExtra("Type", "Add");     //inform this is a new account
                     StartActivity(intent);
                 }
+                //when the bill reminder button is clicked on the bottom toolbar
                 else if(e.Item.TitleFormatted.ToString() == "Bill Reminder")
                 {
                     Toast.MakeText(this, "Bill Reminder: Furture Enhancement", ToastLength.Short).Show();                    
@@ -68,25 +70,27 @@ namespace Transact
             };
         }
 
+        //EVENT - triggered when an account is clicked
 		void OnItemClick(object sender, int position)
 		{
-			//when the account is clicked - open the transaction list for the account
-			//pass the account pk and name to the transaction list page
+			//open the transaction list for the account			
 			var intent = new Intent(this, typeof(Transactions));
-			intent.PutExtra("AccountPK", accounts[position].PK);
+            //pass the account pk and name to the transaction list page
+            intent.PutExtra("AccountPK", accounts[position].PK);
 			intent.PutExtra("AccountName", accounts[position].Name);
 			StartActivity(intent);
 		}
 
+        //EVENT - triggered when an account is long clicked
 		void OnItemLongClick(object sender, int position)
 		{
-			//display a popup menu when long pressing an item in the account list
-			//handle the menu item (edit and delete options for accounts) click event
+			//display a popup menu
             try{
 				Android.Widget.PopupMenu menu = new Android.Widget.PopupMenu(this, mRecyclerView.FindViewHolderForAdapterPosition(position).ItemView, Android.Views.GravityFlags.Right);
 				menu.Inflate(Resource.Layout.popup_menu_account);
 				menu.MenuItemClick += (s1, arg1) =>
 				{
+                    //edit is selected from the popup menu
                     if(arg1.Item.TitleFormatted.ToString() == "Edit")
                     {
                         //Toast.MakeText(this, accounts[position].Name + " | " + arg1.Item.TitleFormatted + " selected", ToastLength.Short).Show();
@@ -95,14 +99,18 @@ namespace Transact
                         intent.PutExtra("AccountPK", accounts[position].PK);
                         StartActivity(intent);
                     }
+                    //delete is selected from the popup menu
                     else if(arg1.Item.TitleFormatted.ToString() == "Delete")
                     {
+                        //display a confirmation popup box with yes or cancel options
                         AlertDialog.Builder builder;
                         builder = new AlertDialog.Builder(this);
                         builder.SetTitle("Delete?");
                         builder.SetMessage("Are you sure you want to delete the account: " + accounts[position].Name);
                         builder.SetCancelable(false);
+                        //when yes is selected - delete account
                         builder.SetPositiveButton("Yes", delegate { db.deleteAccount(accounts[position].PK); });
+                        //when cancel is selected - close confirmation box with no action
                         builder.SetNegativeButton("Cancel", delegate { builder.Dispose(); });
                         builder.Show();
                     }

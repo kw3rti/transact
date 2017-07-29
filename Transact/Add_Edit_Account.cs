@@ -24,7 +24,7 @@ namespace Transact
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Add_Edit_Account);
 
-            type = Intent.GetStringExtra("Type");
+            type = Intent.GetStringExtra("Type");           
 
             name = FindViewById<EditText>(Resource.Id.txtAccountName);
             note = FindViewById<EditText>(Resource.Id.txtAccountNote);
@@ -33,9 +33,9 @@ namespace Transact
 			accountType = FindViewById<Spinner>(Resource.Id.spinnerAccountType);
             accountTypeAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerItem);
             accountTypeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            accountType.Adapter = accountTypeAdapter;         
+            accountType.Adapter = accountTypeAdapter;
 
-            if(type == "Edit")
+            if (type == "Edit")
             {
                 accountPK = Intent.GetIntExtra("AccountPK", 0);
                 loadAccount(accountPK);

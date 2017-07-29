@@ -6,7 +6,6 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using Android.Views;
-using Xamarin.Forms;
 
 namespace Transact
 {
@@ -75,6 +74,7 @@ namespace Transact
             intent.PutExtra("Type", "Edit");     //inform this is a edit transaction
             intent.PutExtra("AccountPK", accountPK);
             intent.PutExtra("AccountName", accountName);
+            intent.PutExtra("TransactionPK", transactions[position].PK);
             StartActivity(intent);
         }
 
