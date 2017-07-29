@@ -7,7 +7,7 @@ using Mono.Data.Sqlite;
 
 namespace Transact
 {
-    public class Database : Activity, Java.IO.ISerializable
+    public class Database : Activity
     {
         //directory to store database (data/data/com.paulhollar.transact/files)
         private static string docsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
