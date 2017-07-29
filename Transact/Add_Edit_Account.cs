@@ -15,6 +15,7 @@ namespace Transact
         private EditText note;
         private EditText startBalance;
         private Spinner accountType;
+        private ArrayAdapter accountTypeAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,9 +31,9 @@ namespace Transact
             startBalance = FindViewById<EditText>(Resource.Id.txtAccountStartBalance);
 
 			accountType = FindViewById<Spinner>(Resource.Id.spinnerAccountType);
-			var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerItem);
-			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            accountType.Adapter = adapter;         
+            accountTypeAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerItem);
+            accountTypeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            accountType.Adapter = accountTypeAdapter;         
 
             if(type == "Edit")
             {
@@ -52,7 +53,14 @@ namespace Transact
             bottomToolbar.MenuItemClick += (sender, e) => {
                 if (e.Item.TitleFormatted.ToString() == "Save")
                 {
-                    addAccount(name, accountType, note, startBalance);
+                    if(type == "Add")
+                    {
+                        addAccount();
+                    }
+                    else if(type == "Edit")
+                    {
+                        updateAccount();
+                    }
                 }
                 else if (e.Item.TitleFormatted.ToString() == "Cancel")
                 {
@@ -70,23 +78,24 @@ namespace Transact
                 {
                     name.Text = act.Name;
                     note.Text = act.Note;
-                    startBalance.Text = act.Balance.ToString();
+                    startBalance.Text = act.InitialBalance.ToString();
+                    accountType.SetSelection(accountTypeAdapter.GetPosition(act.Type));
                     break;
                 }
             }
             
         }
 
-        private async void addAccount(EditText name, Spinner type, EditText note, EditText startBalance)
+        private async void addAccount()
         {
             //do checks to make sure data is entered into form before saving
             if (name.Text != "")
             {
-                if (type.SelectedItem.ToString() != "")
+                if (accountType.SelectedItem.ToString() != "")
                 {
                     if (startBalance.Text != "")
                     {
-                        await MainActivity.db.addAccount(name.Text, note.Text, type.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
+                        await MainActivity.db.addAccount(name.Text, note.Text, accountType.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text), DateTime.Now, "Initial Balance", "", "");
                         MainActivity.accountAdapter.NotifyDataSetChanged();
                         //set selected item to the last item in the list
                         MainActivity.mLayoutManager.ScrollToPosition(MainActivity.accounts.Count - 1);
@@ -100,7 +109,41 @@ namespace Transact
                 }
                 else
                 {
-                    type.RequestFocus();
+                    accountType.RequestFocus();
+                    Toast.MakeText(this, "Type cannot be null/empty", ToastLength.Short).Show();
+                }
+            }
+            else
+            {
+                name.RequestFocus();
+                Toast.MakeText(this, "Name cannot be null/empty", ToastLength.Short).Show();
+            }
+        }
+
+        private async void updateAccount()
+        {
+            //do checks to make sure data is entered into form before saving
+            if (name.Text != "")
+            {
+                if (accountType.SelectedItem.ToString() != "")
+                {
+                    if (startBalance.Text != "")
+                    {
+                        await MainActivity.db.updateAccount(accountPK, name.Text, note.Text, accountType.SelectedItem.ToString(), Convert.ToDecimal(startBalance.Text));
+                        MainActivity.accountAdapter.NotifyDataSetChanged();
+                        //set selected item to the last item in the list
+                        MainActivity.mLayoutManager.ScrollToPosition(MainActivity.accounts.Count - 1);
+                        this.Finish();  //close view when finished entering transaction                          
+                    }
+                    else
+                    {
+                        startBalance.RequestFocus();
+                        Toast.MakeText(this, "Staring Balance cannot be null/empty", ToastLength.Short).Show();
+                    }
+                }
+                else
+                {
+                    accountType.RequestFocus();
                     Toast.MakeText(this, "Type cannot be null/empty", ToastLength.Short).Show();
                 }
             }

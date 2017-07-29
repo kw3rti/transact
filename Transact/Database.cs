@@ -161,7 +161,7 @@ namespace Transact
             return false;
         }
 
-        public async Task<bool> addAccount(string name, string note, string type, decimal amount, DateTime date, string category, string type_toaccount, string notes)
+        public async Task<bool> addAccount(string name, string note, string type, decimal startBalance, DateTime date, string category, string type_toaccount, string notes)
         {
             initializeDatabase();
             Console.WriteLine("Start: AddAccount");
@@ -182,15 +182,74 @@ namespace Transact
                         command.CommandType = CommandType.Text;
                         var accountPK = command.ExecuteScalar();
 
-                        MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(accountPK), Name = name, Type = type, Note = note, Balance = amount });
+                        MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(accountPK), Name = name, Type = type, Note = note, InitialBalance = startBalance, Balance = startBalance });
 
-                        await addTransaction(Convert.ToInt32(accountPK), date, "Initial Balance", amount, category,type_toaccount, notes);
+                        await addTransaction(Convert.ToInt32(accountPK), date, "Initial Balance", startBalance, category,type_toaccount, notes);
 
                         Console.WriteLine("The record was inserted successfully");
                     }
                     conn.Close();
                 }
                 Console.WriteLine("End: AddAccount");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to insert record - reason: " + ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> updateAccount(int accountPK, string name, string note, string type, decimal startBalance)
+        {
+            initializeDatabase();
+            Console.WriteLine("Start: updateAccount");
+
+            // create a connection string for the database
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            try
+            {
+                using (var conn = new SqliteConnection((connectionString)))
+                {
+                    await conn.OpenAsync();
+                    using (var command = conn.CreateCommand())
+                    {                        
+                        command.CommandText = "UPDATE " + accountTableName + " SET Name = @name, Type = @type, Note = @note WHERE PK = @accountPK;";
+                        command.Parameters.Add("@name", DbType.String).Value = name;
+                        command.Parameters.Add("@type", DbType.String).Value = type;
+                        command.Parameters.Add("@note", DbType.String).Value = note;
+                        command.Parameters.Add("@accountPK", DbType.Int32).Value = accountPK;
+                        command.CommandType = CommandType.Text;
+                        command.ExecuteNonQuery();
+
+                        //update account initial balance
+                        command.CommandText = "UPDATE " + transactionTableName + " SET Amount = @initialBalance WHERE AccountPK = @accountPK AND Category = 'Initial Balance';";
+                        command.Parameters.Add("@initialBalance", DbType.String).Value = startBalance;
+                        command.Parameters.Add("@accountPK", DbType.Int32).Value = accountPK;
+                        command.CommandType = CommandType.Text;
+                        command.ExecuteNonQuery();
+
+                        //get new account balance after account update
+                        var newAccountBalance = getAccountBalance(accountPK);
+
+                        //go through each account and update the account with the new balance
+                        foreach (Account act in MainActivity.accounts)
+                        {
+                            if (act.PK == accountPK)
+                            {
+                                act.Name = name;
+                                act.Note = note;
+                                act.InitialBalance = startBalance;
+                                act.Balance = newAccountBalance;
+                                break;
+                            }
+                        }
+
+                        Console.WriteLine("The record was inserted successfully");
+                    }
+                    conn.Close();
+                }
+                Console.WriteLine("End: updateAccount");
                 return true;
             }
             catch (Exception ex)
@@ -302,15 +361,12 @@ namespace Transact
 		public async Task readAccounts()
 		{
 			Console.WriteLine("Start: ReadAccounts");
-            //MainActivity.accounts = new System.Collections.Generic.List<Account>();
-            //MainActivity.lstAccounts = FindViewById<Android.Widget.ListView>(Resource.Id.lstAccounts);
             // create a connection string for the database
             var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
             decimal sum = 0;
+            decimal initBal = 0;
 			try
 			{
-                //MainActivity.accounts = new System.Collections.Generic.List<Account>();
-
                 using (var conn = new SqliteConnection((connectionString)))
 				{
 					await conn.OpenAsync();
@@ -329,15 +385,10 @@ namespace Transact
                                               r["Note"].ToString());
 
                             sum = getAccountBalance(Convert.ToInt32(r["PK"]));
-                            
-                            MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(r["PK"]), Name = r["Name"].ToString(), Type = r["Type"].ToString(), Note = r["Note"].ToString(), Balance = sum });
-                            //MainActivity.accountAdapter.NotifyDataSetChanged();
-                            //MainActivity.lstAccounts.Adapter = MainActivity.accountAdapter;
+                            initBal = getInitialAccountBalance(Convert.ToInt32(r["PK"]));
+
+                            MainActivity.accounts.Add(new Account() { PK = Convert.ToInt32(r["PK"]), Name = r["Name"].ToString(), Type = r["Type"].ToString(), Note = r["Note"].ToString(), InitialBalance = initBal, Balance = sum });
                         }
-                        //MainActivity.mLayoutManager = new Android.Support.V7.Widget.LinearLayoutManager(this);
-                        //MainActivity.mRecyclerView.SetLayoutManager(MainActivity.mLayoutManager);
-                        //MainActivity.accountAdapter = new AccountListViewAdapter(MainActivity.accounts);
-                        //MainActivity.accountAdapter.NotifyDataSetChanged();
                         Console.WriteLine("The records were read successfully");
 					}
 					conn.Close();
@@ -350,11 +401,44 @@ namespace Transact
 			}
 		}
 
+        private decimal getInitialAccountBalance(int accountPK)
+        {
+            Console.WriteLine("Start: getInitialAccountBalance");
+
+            // create a connection string for the database
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            decimal initBal = 0;
+            try
+            {
+                using (var conn = new SqliteConnection((connectionString)))
+                {
+                    conn.OpenAsync();
+                    using (var command = conn.CreateCommand())
+                    {
+                        command.CommandText = "SELECT Amount FROM " + transactionTableName + " WHERE AccountPK = @accountPK AND Category = 'Initial Balance'";
+                        command.Parameters.Add("@accountPK", DbType.Int32).Value = accountPK;
+                        command.CommandType = CommandType.Text;
+                        initBal = Convert.ToDecimal(command.ExecuteScalar());
+
+                        Console.WriteLine("The records were read successfully");
+                    }
+                    conn.Close();
+                }
+                Console.WriteLine("End: getInitialAccountBalance");
+
+                return initBal;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to read record - reason: " + ex.Message);
+                return initBal;
+            }
+        }
+
         private decimal getAccountBalance(int accountPK)
         {
-            Console.WriteLine("Start: ReadAccounts");
-            //MainActivity.accounts = new System.Collections.Generic.List<Account>();
-            //MainActivity.lstAccounts = FindViewById<Android.Widget.ListView>(Resource.Id.lstAccounts);
+            Console.WriteLine("Start: getAccountBalance");
+
             // create a connection string for the database
             var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
             decimal sum = 0;
@@ -374,7 +458,7 @@ namespace Transact
                     }
                     conn.Close();                    
                 }
-                Console.WriteLine("End: ReadAccounts");
+                Console.WriteLine("End: getAccountBalance");
 
                 return sum;
             }
