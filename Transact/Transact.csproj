@@ -101,8 +101,6 @@
     <Compile Include="Database.cs" />
     <Compile Include="Transactions.cs" />
     <Compile Include="Transaction.cs" />
-    <Compile Include="AccountViewHolder.cs" />
-    <Compile Include="TransactionViewHolder.cs" />
     <Compile Include="TransactionListViewAdapter.cs" />
   </ItemGroup>
   <ItemGroup>

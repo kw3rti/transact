@@ -1,20 +1,30 @@
 ﻿﻿﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Graphics;
-using Java.Text;
 using Android.Support.V7.Widget;
 
 namespace Transact
 {
+    public class AccountViewHolder : RecyclerView.ViewHolder
+    {
+        public TextView AccountName { get; private set; }
+        public TextView AccountNote { get; private set; }
+        public TextView AccountBalance { get; private set; }
+
+        public AccountViewHolder(View itemView, Action<int> listener, Action<int> listener2) : base(itemView)
+        {
+            // Locate and cache view references:
+            AccountName = itemView.FindViewById<TextView>(Resource.Id.txtAccountName);
+            AccountNote = itemView.FindViewById<TextView>(Resource.Id.txtAccountNote);
+            AccountBalance = itemView.FindViewById<TextView>(Resource.Id.txtAccountBalance);
+
+            itemView.Click += (sender, e) => listener(base.Position);
+            itemView.LongClick += (sender, e) => listener2(base.Position);
+        }
+    }
+
     public class AccountListViewAdapter : RecyclerView.Adapter
     {
         private List<Account> mItems;
