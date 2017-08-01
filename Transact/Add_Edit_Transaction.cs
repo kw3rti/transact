@@ -18,10 +18,11 @@ namespace Transact
         private EditText title;
         private EditText amount;
         private EditText date;
-        private EditText type_toaccount;
         private EditText notes;
         private Spinner category;
+        private Spinner type_toaccount;
         private ArrayAdapter transactionCategoryAdapter;
+        private ArrayAdapter transactionTypeToAccountAdapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -39,13 +40,16 @@ namespace Transact
             title = FindViewById<EditText>(Resource.Id.txtTitle);
             amount = FindViewById<EditText>(Resource.Id.txtAmount);
             date = FindViewById<EditText>(Resource.Id.txtDate);
-            type_toaccount = FindViewById<EditText>(Resource.Id.txtType_ToAccount);
             notes = FindViewById<EditText>(Resource.Id.txtNotes);
 
             category = FindViewById<Spinner>(Resource.Id.spinnerCategory);
-            transactionCategoryAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.category_array, Android.Resource.Layout.SimpleSpinnerItem);
-            transactionCategoryAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            transactionCategoryAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.category_array, Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			category.Adapter = transactionCategoryAdapter;
+            category.ItemSelected += Category_ItemSelected;
+
+            type_toaccount = FindViewById<Spinner>(Resource.Id.spinnerType_ToAccount);
+            transactionTypeToAccountAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            type_toaccount.Adapter = transactionTypeToAccountAdapter;
 
             //AutoCompleteTextView test = FindViewById<AutoCompleteTextView>(Resource.Id.autoCompleteTextView1);
             //var categories = new string[] { "ATM", "Auto Maintenance" };
@@ -86,9 +90,34 @@ namespace Transact
             };
         }
 
+        //event for when the category dropdown changes
+        private void Category_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            Spinner spinner = (Spinner)sender;
+            //if the selection contains the text "transfer" clear the type_toaccount dropdown and load it with all accounts besides the current account
+            if(spinner.GetItemAtPosition(e.Position).ToString().Contains("Transfer"))
+            {
+                transactionTypeToAccountAdapter.Clear();
+                foreach (Account act in MainActivity.accounts)
+                {
+                    if (act.PK != accountPK)
+                    {
+                        transactionTypeToAccountAdapter.Add(act.Name);
+                    }
+                }
+            }
+            //if the selection is anything else besides transfer clear and load the tyep_toaccount dropdown back to default
+            else
+            {
+                transactionTypeToAccountAdapter.Clear();
+                transactionTypeToAccountAdapter.Add("Withdrawal");
+                transactionTypeToAccountAdapter.Add("Deposit");
+            }
+        }
+
         private void loadTransaction(int transactionPK)
         {
-            //go through each account and update the account with the new balance
+            //go through each transaction and set the values for the selected transaction
             foreach (Transaction trans in Transactions.transactions)
             {
                 if (trans.PK == transactionPK)
@@ -97,7 +126,7 @@ namespace Transact
                     amount.Text = trans.Amount.ToString();
                     date.Text = trans.Date.ToString("MM-dd-yyyy");
                     category.SetSelection(transactionCategoryAdapter.GetPosition(trans.Category));
-                    type_toaccount.Text = trans.Type_ToAccount;
+                    type_toaccount.SetSelection(transactionTypeToAccountAdapter.GetPosition(trans.Type_ToAccount));
                     notes.Text = trans.Notes;
                     break;
                 }
@@ -110,8 +139,8 @@ namespace Transact
                 if (amount.Text != ""){
                     if (date.Text != ""){
                         if(category.SelectedItem.ToString() != ""){
-                            if(type_toaccount.Text != ""){
-                                await MainActivity.db.addTransaction(accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.Text, notes.Text);
+                            if(type_toaccount.SelectedItem.ToString() != ""){
+                                await MainActivity.db.addTransaction(accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.SelectedItem.ToString(), notes.Text);
                                 //Transactions.transactionAdapter.NotifyDataSetChanged();
                                 //set selected item to the last item in the list
                                 Transactions.mLayoutManager.ScrollToPosition(Transactions.transactions.Count - 1);
@@ -154,9 +183,9 @@ namespace Transact
                     {
                         if (category.SelectedItem.ToString() != "")
                         {
-                            if (type_toaccount.Text != "")
+                            if (type_toaccount.SelectedItem.ToString() != "")
                             {
-                                await MainActivity.db.updateTransaction(transactionPK, accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.Text, notes.Text);
+                                await MainActivity.db.updateTransaction(transactionPK, accountPK, Convert.ToDateTime(date.Text.ToString()), title.Text, Convert.ToDecimal(amount.Text), category.SelectedItem.ToString(), type_toaccount.SelectedItem.ToString(), notes.Text);
                                 //Transactions.transactionAdapter.NotifyDataSetChanged();
                                 //set selected item to the last item in the list
                                 Transactions.mLayoutManager.ScrollToPosition(Transactions.transactions.Count - 1);

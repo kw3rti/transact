@@ -52,9 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50" />
-            <EditText
-                android:id="@+id/txtType_ToAccount"
-                android:hint="@string/hint_type_toaccount"
+            <Spinner
+                android:id="@+id/spinnerType_ToAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50" />
@@ -66,10 +65,6 @@
             android:layout_height="wrap_content" />
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Spinner
-            android:id="@+id/spinnerType_ToAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

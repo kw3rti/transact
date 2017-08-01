@@ -31,8 +31,8 @@ namespace Transact
             startBalance = FindViewById<EditText>(Resource.Id.txtAccountStartBalance);
 
 			accountType = FindViewById<Spinner>(Resource.Id.spinnerAccountType);
-            accountTypeAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerItem);
-            accountTypeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            accountTypeAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.account_array, Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            //accountTypeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             accountType.Adapter = accountTypeAdapter;
 
             if (type == "Edit")

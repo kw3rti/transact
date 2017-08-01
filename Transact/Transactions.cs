@@ -69,7 +69,6 @@ namespace Transact
 
 		void OnItemClick(object sender, int position)
 		{
-			Toast.MakeText(this, transactions[position].Title + " | open to edit screen", ToastLength.Short).Show();
             var intent = new Intent(this, typeof(Add_Edit_Transaction));
             intent.PutExtra("Type", "Edit");     //inform this is a edit transaction
             intent.PutExtra("AccountPK", accountPK);
