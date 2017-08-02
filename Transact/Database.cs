@@ -263,8 +263,18 @@ namespace Transact
             initializeDatabase();
 			Console.WriteLine("Start: AddTransaction");
 
+            decimal amount2 = 0;
+            if (type_toaccount == "Withdrawal")
+            {
+                amount2 = Convert.ToDecimal("-" + amount);
+            }
+            else if (type_toaccount == "Deposit")
+            {
+                amount2 = Convert.ToDecimal(amount);
+            }
+
             // create a connection string for the database
-			var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
+            var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
 			try
 			{
 				using (var conn = new SqliteConnection((connectionString)))
@@ -276,14 +286,14 @@ namespace Transact
                         command.Parameters.Add("@accountPK", DbType.Int32).Value = accountPK;
                         command.Parameters.Add("@date", DbType.Date).Value = date;
                         command.Parameters.Add("@title", DbType.String).Value = title;
-                        command.Parameters.Add("@amount", DbType.Decimal).Value = amount;                        
+                        command.Parameters.Add("@amount", DbType.Decimal).Value = amount2;                        
                         command.Parameters.Add("@category", DbType.String).Value = category;
                         command.Parameters.Add("@type_toaccount", DbType.String).Value = type_toaccount;
                         command.Parameters.Add("@notes", DbType.String).Value = notes;
                         command.CommandType = CommandType.Text;
 						var pk = command.ExecuteScalar();
 
-                        Transactions.transactions.Add(new Transaction() { PK = Convert.ToInt32(pk), AccountPK = accountPK, Date = date, Title = title, Amount = amount, Category = category, Type_ToAccount = type_toaccount, Notes = notes });
+                        Transactions.transactions.Add(new Transaction() { PK = Convert.ToInt32(pk), AccountPK = accountPK, Date = date, Title = title, Amount = amount2, Category = category, Type_ToAccount = type_toaccount, Notes = notes });
 
                         //notify the list of transactions that the data set has changed (to update the list of transactions)
                         Transactions.transactionAdapter.NotifyDataSetChanged();
@@ -320,6 +330,16 @@ namespace Transact
             initializeDatabase();
             Console.WriteLine("Start: AddTransaction");
 
+            decimal amount2 = 0;
+            if (type_toaccount == "Withdrawal")
+            {
+                amount2 = Convert.ToDecimal("-" + amount);
+            }
+            else if (type_toaccount == "Deposit")
+            {
+                amount2 = Convert.ToDecimal(amount);
+            }
+
             // create a connection string for the database
             var connectionString = string.Format("Data Source={0};Version=3;", pathToDatabase);
             try
@@ -333,7 +353,7 @@ namespace Transact
                         command.Parameters.Add("@transactionPK", DbType.Int32).Value = transactionPK;
                         command.Parameters.Add("@date", DbType.Date).Value = date;
                         command.Parameters.Add("@title", DbType.String).Value = title;
-                        command.Parameters.Add("@amount", DbType.Decimal).Value = amount;
+                        command.Parameters.Add("@amount", DbType.Decimal).Value = amount2;
                         command.Parameters.Add("@category", DbType.String).Value = category;
                         command.Parameters.Add("@type_toaccount", DbType.String).Value = type_toaccount;
                         command.Parameters.Add("@notes", DbType.String).Value = notes;
@@ -347,7 +367,7 @@ namespace Transact
                             {
                                 trans.Date = date;
                                 trans.Title = title;
-                                trans.Amount = amount;
+                                trans.Amount = amount2;
                                 trans.Category = category;
                                 trans.Type_ToAccount = type_toaccount;
                                 trans.Notes = notes;

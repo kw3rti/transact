@@ -23,6 +23,7 @@ namespace Transact
         private Spinner type_toaccount;
         private ArrayAdapter transactionCategoryAdapter;
         private ArrayAdapter transactionTypeToAccountAdapter;
+        private bool defaultTypeToAccountLoaded = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,12 +44,15 @@ namespace Transact
             notes = FindViewById<EditText>(Resource.Id.txtNotes);
 
             category = FindViewById<Spinner>(Resource.Id.spinnerCategory);
-            transactionCategoryAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.category_array, Android.Resource.Layout.SimpleSpinnerDropDownItem);
-			category.Adapter = transactionCategoryAdapter;
+            transactionCategoryAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.category_array, Android.Resource.Layout.SimpleSpinnerDropDownItem);            
+            category.Adapter = transactionCategoryAdapter;
             category.ItemSelected += Category_ItemSelected;
 
             type_toaccount = FindViewById<Spinner>(Resource.Id.spinnerType_ToAccount);
             transactionTypeToAccountAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            transactionTypeToAccountAdapter.Add("Withdrawal");
+            transactionTypeToAccountAdapter.Add("Deposit");
+            defaultTypeToAccountLoaded = true;
             type_toaccount.Adapter = transactionTypeToAccountAdapter;
 
             //AutoCompleteTextView test = FindViewById<AutoCompleteTextView>(Resource.Id.autoCompleteTextView1);
@@ -105,13 +109,19 @@ namespace Transact
                         transactionTypeToAccountAdapter.Add(act.Name);
                     }
                 }
+                defaultTypeToAccountLoaded = false;
             }
             //if the selection is anything else besides transfer clear and load the tyep_toaccount dropdown back to default
             else
             {
-                transactionTypeToAccountAdapter.Clear();
-                transactionTypeToAccountAdapter.Add("Withdrawal");
-                transactionTypeToAccountAdapter.Add("Deposit");
+                if (defaultTypeToAccountLoaded == false)
+                {
+                    transactionTypeToAccountAdapter.Clear();
+                    transactionTypeToAccountAdapter.Add("Withdrawal");
+                    transactionTypeToAccountAdapter.Add("Deposit");
+                    defaultTypeToAccountLoaded = true;
+                } 
+                
             }
         }
 
@@ -123,7 +133,18 @@ namespace Transact
                 if (trans.PK == transactionPK)
                 {
                     title.Text = trans.Title;
-                    amount.Text = trans.Amount.ToString();
+
+                    var amount2 = trans.Amount.ToString();
+
+                    if (amount2.Contains("-"))
+                    {
+                        amount.Text = amount2.Substring(1);
+                    }
+                    else
+                    {
+                        amount.Text = amount2;
+                    }
+                    
                     date.Text = trans.Date.ToString("MM-dd-yyyy");
                     category.SetSelection(transactionCategoryAdapter.GetPosition(trans.Category));
                     type_toaccount.SetSelection(transactionTypeToAccountAdapter.GetPosition(trans.Type_ToAccount));

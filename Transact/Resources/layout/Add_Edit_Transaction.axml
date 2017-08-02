@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:inputType="numberDecimal|numberSigned"
+                android:inputType="numberDecimal"
                 android:id="@+id/txtAmount"
                 android:hint="@string/hint_amount"
                 android:layout_width="match_parent"
